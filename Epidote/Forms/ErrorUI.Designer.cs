@@ -66,9 +66,9 @@
             this.guna2HtmlLabel4.IsSelectionEnabled = false;
             this.guna2HtmlLabel4.Location = new System.Drawing.Point(54, 279);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(258, 19);
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(323, 19);
             this.guna2HtmlLabel4.TabIndex = 26;
-            this.guna2HtmlLabel4.Text = "Don\'t worry, just start lunar or contact us.";
+            this.guna2HtmlLabel4.Text = "Please be patient and contact us if the error persists.";
             // 
             // guna2HtmlLabel3
             // 
@@ -78,9 +78,9 @@
             this.guna2HtmlLabel3.IsSelectionEnabled = false;
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(54, 256);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(364, 19);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(408, 19);
             this.guna2HtmlLabel3.TabIndex = 25;
-            this.guna2HtmlLabel3.Text = "Whoopsie daisy! Looks like something went a little haywire.";
+            this.guna2HtmlLabel3.Text = "Ooofy, Whoopsie daisy! Looks like something went a little haywire.";
             // 
             // guna2PictureBox2
             // 
@@ -101,23 +101,26 @@
             // 
             // guna2GroupBox1
             // 
+            this.guna2GroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.guna2GroupBox1.BackColor = System.Drawing.Color.Transparent;
             this.guna2GroupBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.guna2GroupBox1.BorderRadius = 5;
+            this.guna2GroupBox1.BorderRadius = 6;
             this.guna2GroupBox1.CustomBorderColor = System.Drawing.Color.Transparent;
             this.guna2GroupBox1.FillColor = System.Drawing.Color.Transparent;
             this.guna2GroupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.guna2GroupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
             this.guna2GroupBox1.Location = new System.Drawing.Point(54, 316);
             this.guna2GroupBox1.Name = "guna2GroupBox1";
-            this.guna2GroupBox1.ShadowDecoration.BorderRadius = 5;
+            this.guna2GroupBox1.ShadowDecoration.BorderRadius = 8;
             this.guna2GroupBox1.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
             this.guna2GroupBox1.ShadowDecoration.Depth = 6;
             this.guna2GroupBox1.ShadowDecoration.Enabled = true;
-            this.guna2GroupBox1.Size = new System.Drawing.Size(364, 28);
+            this.guna2GroupBox1.Size = new System.Drawing.Size(381, 28);
             this.guna2GroupBox1.TabIndex = 32;
             this.guna2GroupBox1.Text = "message";
             this.guna2GroupBox1.TextOffset = new System.Drawing.Point(0, -6);
+            this.guna2GroupBox1.UseTransparentBackground = true;
             // 
             // guna2Panel1
             // 

@@ -37,11 +37,9 @@ namespace Epidote.Game
             "HitDelayFix"
         );
 
-        private static readonly string _AppDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
+        private static readonly string _AppDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
             "\\"
         );
-
-        private static bool IsWaiting = false;
 
         private static readonly List<string> _GameStartingDetection = new List<string>
         {

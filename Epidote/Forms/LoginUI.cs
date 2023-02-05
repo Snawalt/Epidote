@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Epidote;
 
 namespace Epidote.Forms
 {
@@ -47,32 +40,33 @@ namespace Epidote.Forms
             }
             else
             {
-                Task.Run(() => {
+                Task.Run(() =>
+                {
                     Epidote.Program._username = username;
-                    if(!Directory.Exists(Program._usernameDirectory))
+                    if (!Directory.Exists(Epidote.Utils.FileVerification._usernameDirectory))
                     {
-                        Directory.CreateDirectory(Program._usernameDirectory);
+                        Directory.CreateDirectory(Epidote.Utils.FileVerification._usernameDirectory);
                     }
-                    File.WriteAllText(Epidote.Program._usernamePath, username);
+                    File.WriteAllText(Epidote.Utils.FileVerification._usernamePath, username);
                     LandingUI LandingUI = new LandingUI();
                     this.Hide();
                     LandingUI.ShowDialog();
                     this.Close();
                 });
-       
+
             }
         }
 
         private void LoginUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Directory.Exists(Program._usernameDirectory) && File.Exists(Program._usernamePath))
+            if (Directory.Exists(Epidote.Utils.FileVerification._usernameDirectory) && File.Exists(Epidote.Utils.FileVerification._usernamePath))
             {
-                using (FileStream stream = new FileStream(Epidote.Program._usernamePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                using (FileStream stream = new FileStream(Epidote.Utils.FileVerification._usernamePath, FileMode.Open, FileAccess.Read, FileShare.None))
                 using (StreamReader reader = new StreamReader(stream))
                 {
                     if (reader.ReadToEnd().Length == 0)
                     {
-                        Directory.Delete(Program._usernameDirectory, true);
+                        Directory.Delete(Epidote.Utils.FileVerification._usernameDirectory, true);
                     }
                 }
             }
@@ -89,6 +83,11 @@ namespace Epidote.Forms
         {
             string websiteLink = "https://epidote.lol";
             Process.Start(websiteLink);
+        }
+
+        private void LoginUI_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

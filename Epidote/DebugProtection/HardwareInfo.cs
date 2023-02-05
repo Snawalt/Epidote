@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Management;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using TheArtOfDevHtmlRenderer.Adapters;
 
 namespace Epidote.Protection
 {
@@ -126,7 +121,7 @@ namespace Epidote.Protection
 
                 return identifier;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ExceptionLogger.Write(LogEvent.Error, $"error at: {ex.ToString()}", false);
                 return null;

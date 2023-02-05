@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 
 namespace Epidote
 {
@@ -49,65 +48,3 @@ namespace Epidote
         }
     }
 }
-
-
-
-//using System;
-//using System.IO;
-//using System.Text;
-
-//namespace Epidote
-//{
-//    public enum LogEvent
-//    {
-//        Info = 0,
-//        Success = 1,
-//        Warning = 2,
-//        Error = 3
-//    }
-
-//    public class ExceptionLogger
-//    {
-//        private static readonly string logSession = DateTime.Now.ToLocalTime().ToString("yyyyMMdd_HHmmss");
-//        private static readonly string logPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Epidote", "Logs");
-
-//        public static void Write(LogEvent level, string message, Exception ex = null, bool showConsole = true, bool writeLogFile = true)
-//        {
-//            string eventType;
-
-//            switch (level)
-//            {
-//                case LogEvent.Info:
-//                    eventType = "Info";
-//                    break;
-//                case LogEvent.Success:
-//                    eventType = "Success";
-//                    break;
-//                case LogEvent.Warning:
-//                    eventType = "Warning";
-//                    break;
-//                case LogEvent.Error:
-//                    eventType = "Error";
-//                    break;
-//                default:
-//                    throw new ArgumentOutOfRangeException(nameof(level), level, null);
-//            }
-
-//            if (writeLogFile)
-//            {
-//                if (!Directory.Exists(logPath))
-//                    Directory.CreateDirectory(logPath);
-
-//                using (var sw = new StreamWriter(Path.Combine(logPath, logSession + ".log"), true, Encoding.UTF8))
-//                {
-//                    string logMessage = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] - {eventType}: {message}";
-//                    if (ex != null)
-//                        logMessage += Environment.NewLine + ex;
-//                    sw.WriteLine(logMessage);
-//                }
-//            }
-//            if (showConsole)
-//                Console.WriteLine(message);
-//        }
-//    }
-//}

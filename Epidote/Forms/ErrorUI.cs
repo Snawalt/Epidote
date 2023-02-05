@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Epidote.Forms
@@ -39,7 +33,13 @@ namespace Epidote.Forms
 
         private void ErrorUI_Load(object sender, EventArgs e)
         {
-            guna2GroupBox1.Text = Epidote.Game.LunarFilesCheck.errorMessage;
+            guna2GroupBox1.AutoSize = true;
+            guna2GroupBox1.Text = Epidote.Utils.FileVerification.errorMessage;
+            if(Epidote.Utils.FileVerification.isProblemWithLunarJrePath())
+            {
+                // Delete the specific directory
+                Directory.Delete(Epidote.Utils.FileVerification.LunarJrePath, true);
+            }
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)

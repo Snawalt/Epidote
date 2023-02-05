@@ -1,74 +1,69 @@
 ﻿using Epidote.Forms;
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Epidote
 {
     internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        /// 
+        // EntryPoint for the program
 
-
-        public static string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        public static string _usernamePath = Path.Combine(userProfile, "Epidote", "epidote-usernames.dat");
-        public static string _usernameDirectory = Path.Combine(userProfile, "Epidote");
+        // The publuc username
 
         public static string _username;
+
         [STAThread]
         static void Main()
-        {
-            if(Epidote.Game.LunarFilesCheck.IsReadyAsync().Result == false)
+        { 
+            // Check if debugger is attached, put ! the start of the line
+            if (Protection.AntiDebugging.DebuggingDetector.IsDebuggerAttached())
             {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new ErrorUI());
-            }
-            else
-            {
-                if (!Directory.Exists(_usernameDirectory) || !File.Exists(_usernamePath) || IsFileDamaged())
+                // Check if there is an outdated version of the software
+                if (!Epidote.Utils.VersionChecker.isOutdatedVersion)
                 {
-                    Directory.CreateDirectory(_usernameDirectory);
+                    // Check if the LunarFiles are ready to be used
+                    if (Epidote.Utils.FileVerification.IsReadyAsync().Result == false)
+                    {
+                        // Show the error form if the LunarFiles are not ready
+                        Application.EnableVisualStyles();
+                        Application.SetCompatibleTextRenderingDefault(false);
+                        Application.Run(new ErrorUI());
+                    }
+                    else
+                    {
+                        if (!Epidote.Utils.FileVerification.IsFileAndDirectoryExist())
+                        {
+                            // Show the login form
+                            Application.EnableVisualStyles();
+                            Application.SetCompatibleTextRenderingDefault(false);
+                            Application.Run(new LoginUI());
+                        }
+                        else
+                        {
+                            // Read the username from the file
+                            _username = File.ReadAllText(Epidote.Utils.FileVerification._usernamePath);
 
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new LoginUI());
+                            // Show the landing form
+                            Application.EnableVisualStyles();
+                            Application.SetCompatibleTextRenderingDefault(false);
+                            Application.Run(new LandingUI());
+                        }
+                    }
                 }
                 else
                 {
-
-                    _username = File.ReadAllText(_usernamePath);
-
+                    // Show the version form if there is an outdated version of the software
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new LandingUI());
+                    Application.Run(new VersionUI());
                 }
             }
-           
-        }
-
-
-        public static bool IsFileDamaged()
-        {
-            if (Directory.Exists(Program._usernameDirectory) && File.Exists(Program._usernamePath))
+            else
             {
-                using (FileStream stream = new FileStream(Epidote.Program._usernamePath, FileMode.Open, FileAccess.Read, FileShare.None))
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    if (reader.ReadToEnd().Length == 0)
-                    {
-                        return true;
-                    }
-                    else
-                        return false;
-                }
+                // Exit the application if the debugger is not attached
+                Application.Exit();
             }
-            return false;
         }
     }
 }
