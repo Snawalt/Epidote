@@ -1,5 +1,8 @@
 ﻿using Epidote.Forms;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Windows.Forms;
 
@@ -15,16 +18,20 @@ namespace Epidote
 
         [STAThread]
         static void Main()
-        { 
+        {
             // Check if debugger is attached, put ! the start of the line
             if (Protection.AntiDebugging.DebuggingDetector.IsDebuggerAttached())
             {
+                Epidote.Database.MongoDBSettings.GetVersion();
+
                 // Check if there is an outdated version of the software
-                if (!Epidote.Utils.VersionChecker.isOutdatedVersion)
+                if (!Epidote.Utils.VersionChecker.isUpdateAvaiable())
                 {
+
                     // Check if the LunarFiles are ready to be used
                     if (Epidote.Utils.FileVerification.IsReadyAsync().Result == false)
                     {
+
                         // Show the error form if the LunarFiles are not ready
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
@@ -32,8 +39,10 @@ namespace Epidote
                     }
                     else
                     {
+
                         if (!Epidote.Utils.FileVerification.IsFileAndDirectoryExist())
                         {
+
                             // Show the login form
                             Application.EnableVisualStyles();
                             Application.SetCompatibleTextRenderingDefault(false);
@@ -61,7 +70,7 @@ namespace Epidote
             }
             else
             {
-                // Exit the application if the debugger is not attached
+                // Exit the application if the debugger is attached
                 Application.Exit();
             }
         }

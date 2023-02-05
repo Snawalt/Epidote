@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -10,66 +11,74 @@ namespace Epidote.Forms
 {
     public partial class LoginUI : Form
     {
+        [DllImport("DwmApi", EntryPoint = "DwmSetWindowAttribute")]
+        private static extern int SetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+
         public LoginUI()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
-            guna2GroupBox1.Text = "";
-            guna2GroupBox1.Visible = false;
+            errorGroupBox.Text = "";
+            errorGroupBox.Visible = false;
         }
-
-        [DllImport("DwmApi")] //System.Runtime.InteropServices
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
 
         protected override void OnHandleCreated(EventArgs e)
         {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+            int result = SetWindowAttribute(Handle, 19, new[] { 1 }, 4);
+            if (result != 0)
+            {
+                SetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+            }
         }
 
         private void guna2GradientButton1_Click(object sender, EventArgs e)
         {
-            string username = guna2TextBox1.Text;
+            string username = username_box.Text;
 
-
-            if (username.Length < Epidote.LandingUI.MIN_USERNAME_LENGTH || username.Length > Epidote.LandingUI.MAX_USERNAME_LENGTH || !Regex.IsMatch(username, @"^[a-zA-Z0-9_]+$"))
+            if (username.Length < Epidote.LandingUI.MIN_USERNAME_LENGTH ||
+                username.Length > Epidote.LandingUI.MAX_USERNAME_LENGTH ||
+                !Regex.IsMatch(username, @"^[a-zA-Z0-9_]+$"))
             {
-                guna2GroupBox1.Text = "The username you have entered is incorrect";
-                guna2GroupBox1.Visible = true;
+                errorGroupBox.Text = "The username you have entered is incorrect";
+                errorGroupBox.Visible = true;
+                return;
             }
-            else
+
+            Task.Run(() =>
             {
-                Task.Run(() =>
+                Epidote.Program._username = username;
+                string usernameDirectory = Epidote.Utils.FileVerification._usernameDirectory;
+
+                if (!Directory.Exists(usernameDirectory))
                 {
-                    Epidote.Program._username = username;
-                    if (!Directory.Exists(Epidote.Utils.FileVerification._usernameDirectory))
-                    {
-                        Directory.CreateDirectory(Epidote.Utils.FileVerification._usernameDirectory);
-                    }
-                    File.WriteAllText(Epidote.Utils.FileVerification._usernamePath, username);
-                    LandingUI LandingUI = new LandingUI();
-                    this.Hide();
-                    LandingUI.ShowDialog();
-                    this.Close();
-                });
+                    Directory.CreateDirectory(usernameDirectory);
+                }
 
-            }
+                string usernamePath = Epidote.Utils.FileVerification._usernamePath;
+                File.WriteAllText(usernamePath, username);
+
+                LandingUI landingUI = new LandingUI();
+                Hide();
+                landingUI.ShowDialog();
+                Close();
+            });
         }
 
         private void LoginUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Directory.Exists(Epidote.Utils.FileVerification._usernameDirectory) && File.Exists(Epidote.Utils.FileVerification._usernamePath))
+            string usernameDirectory = Epidote.Utils.FileVerification._usernameDirectory;
+            string usernamePath = Epidote.Utils.FileVerification._usernamePath;
+
+            if (Directory.Exists(usernameDirectory) && File.Exists(usernamePath))
             {
-                using (FileStream stream = new FileStream(Epidote.Utils.FileVerification._usernamePath, FileMode.Open, FileAccess.Read, FileShare.None))
-                using (StreamReader reader = new StreamReader(stream))
+                FileStream stream = new FileStream(usernamePath, FileMode.Open, FileAccess.Read, FileShare.None);
+                StreamReader reader = new StreamReader(stream);
+                if (reader.ReadToEnd().Length == 0)
                 {
-                    if (reader.ReadToEnd().Length == 0)
-                    {
-                        Directory.Delete(Epidote.Utils.FileVerification._usernameDirectory, true);
-                    }
+                    Directory.Delete(usernameDirectory, true);
                 }
             }
+
             Application.Exit();
         }
 
@@ -83,11 +92,6 @@ namespace Epidote.Forms
         {
             string websiteLink = "https://epidote.lol";
             Process.Start(websiteLink);
-        }
-
-        private void LoginUI_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -6,6 +8,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Epidote
 {
@@ -34,29 +37,51 @@ namespace Epidote
             //guna2HtmlLabel7.Text = "stable-"+Epidote.Utils.VersionChecker.CurrentVersion+"-release";
         }
 
+        //static void UploadPlayerData()
+        //{
+        //    BsonDocument document = new BsonDocument
+        //        {
+        //            { "username", Epidote.Program._username }
+        //        };
+
+        //    var documents = Epidote.Database.MongoDBSettings.Collection.Find(new BsonDocument()).ToList();
+        //    foreach (var doc in documents)
+        //    {
+        //        if (doc["username"] != Epidote.Program._username)
+        //        {
+        //            Epidote.Database.MongoDBSettings.Collection.InsertOne(doc);
+        //        }
+        //    }
+
+        //}
+
         private void LandingUI_Load(object sender, EventArgs e)
         {
             bool stop = false;
             Task.Run(() =>
             {
-                guna2GradientButton1.Visible = false;
-                guna2CircleProgressBar1.Visible = true;
+                //UploadPlayerData();
+                launch_button.Visible = false;
+                progressbar_waiting.Visible = true;
 
                 Epidote.Utils.FileDownloader.DownloadAndInstallAddons();
-                guna2Button5.Text = Program._username;
+                username_text.Text = Program._username;
                 var request = WebRequest.Create("https://mc-heads.net/avatar/" + Program._username);
 
                 using (var response = request.GetResponse())
                 using (var stream = response.GetResponseStream())
                 {
-                    guna2PictureBox3.Image = Bitmap.FromStream(stream);
+                    profile_freame_picturebox.Image = Bitmap.FromStream(stream);
                 }
                 while (!stop)
                 {
-                    guna2GradientButton1.Visible = true;
-                    guna2CircleProgressBar1.Visible = false;
+                    launch_button.Visible = true;
+                    progressbar_waiting.Visible = false;
                     stop = true;
                 }
+
+
+
 
                 Console.WriteLine("Memory used before collection:       {0:N0}",
                                   GC.GetTotalMemory(false));
@@ -125,6 +150,11 @@ namespace Epidote
         {
             string _namemcProfile = "https://namemc.com/profile/" + Program._username;
             Process.Start(_namemcProfile);
+        }
+
+        private void guna2PictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

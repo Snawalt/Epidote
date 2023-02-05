@@ -46,14 +46,14 @@ namespace Epidote.Utils
             // Check if the GameReadyDirectory exists
             if (!Directory.Exists(GameReadyDirectory))
             {
-                errorMessage = "The GameReadyDirectory does not exist.";
+                errorMessage = "The Game Directory does not exist.";
                 return false;
             }
 
             // Check if the NativesDirectory exists
             if (!Directory.Exists(NativesDirectory))
             {
-                errorMessage = "The NativesDirectory does not exist.";
+                errorMessage = "The Natives Directory does not exist.";
                 return false;
             }
 
