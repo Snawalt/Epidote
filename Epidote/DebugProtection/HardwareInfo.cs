@@ -1,95 +1,40 @@
 ﻿using System;
 using System.Management;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Epidote.Protection
 {
     public class HardwareInfo
     {
-        public static void GetHardwareInformation()
+        public static string GetHardwareInformationHash()
         {
             try
             {
-                // systemGuid
+                string hardwareId = "";
+
+                // 1
                 string systemGuid = GetHardwareIdentifier("Win32_ComputerSystemProduct", "UUID");
-                ExceptionLogger.Write(LogEvent.Info, $"System GUID: {systemGuid}", false);
+                hardwareId += systemGuid;
 
-                // Get the processor identifier
+                // 2
                 string processorId = GetHardwareIdentifier("Win32_Processor", "ProcessorId");
-                ExceptionLogger.Write(LogEvent.Info, $"Processor identifier: {processorId}", false);
+                hardwareId += processorId;
 
-                // Get the motherboard identifier
+                // 3
                 string motherboardId = GetHardwareIdentifier("Win32_BaseBoard", "SerialNumber");
-                ExceptionLogger.Write(LogEvent.Info, $"Motherboard identifier: {motherboardId}", false);
+                hardwareId += motherboardId;
 
-                // Get the hard drive identifier
+                // 4
                 string hardDriveId = GetHardwareIdentifier("Win32_DiskDrive", "SerialNumber");
-                ExceptionLogger.Write(LogEvent.Info, $"Hard drive identifier: {hardDriveId}", false);
+                hardwareId += hardDriveId;
 
-
-                // Get the operating system serial number
+                // 5
                 string osSerial = GetHardwareIdentifier("Win32_OperatingSystem", "SerialNumber");
-                ExceptionLogger.Write(LogEvent.Info, $"Operating system serial number: {osSerial}", false);
+                hardwareId += osSerial;
 
-                // videoCardId
-                string videoCardId = GetHardwareIdentifier("Win32_VideoController", "DeviceID");
-                ExceptionLogger.Write(LogEvent.Info, $"Video card identifier: {videoCardId}", false);
-
-                // usbId
-                string usbId = GetHardwareIdentifier("Win32_USBController", "PNPDeviceID");
-                ExceptionLogger.Write(LogEvent.Info, $"USB identifier: {usbId}", false);
-
-                // motherboardManufacturer
-                string motherboardManufacturer = GetHardwareIdentifier("Win32_BaseBoard", "Manufacturer");
-                ExceptionLogger.Write(LogEvent.Info, $"Motherboard manufacturer: {motherboardManufacturer}", false);
-
-                // processorManufacturer
-                string processorManufacturer = GetHardwareIdentifier("Win32_Processor", "Manufacturer");
-                ExceptionLogger.Write(LogEvent.Info, $"Processor manufacturer: {processorManufacturer}", false);
-
-                // memoryIds
-                string memoryIds = "";
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMemory");
-                ManagementObjectCollection results = searcher.Get();
-                foreach (ManagementObject result in results)
-                {
-                    memoryIds += result["SerialNumber"] + " ";
-                }
-                ExceptionLogger.Write(LogEvent.Info, $"Memory module identifiers: {memoryIds}", false);
-
-                // biosVersion
-                string biosVersion = GetHardwareIdentifier("Win32_BIOS", "SMBIOSBIOSVersion");
-                ExceptionLogger.Write(LogEvent.Info, $"BIOS version: {biosVersion}", false);
-
-                // processorClockSpeed
-                string processorClockSpeed = GetHardwareIdentifier("Win32_Processor", "MaxClockSpeed");
-                ExceptionLogger.Write(LogEvent.Info, $"Processor clock speed: {processorClockSpeed} MHz", false);
-
-                // systemType
-                string systemType = GetHardwareIdentifier("Win32_ComputerSystem", "SystemType");
-                ExceptionLogger.Write(LogEvent.Info, $"System type: {systemType}", false);
-
-                // systemIp
-                string systemIp = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
-                ExceptionLogger.Write(LogEvent.Info, $"System IP address: {systemIp}", false);
-
-                // osName
-                string osName = GetHardwareIdentifier("Win32_OperatingSystem", "Caption");
-                ExceptionLogger.Write(LogEvent.Info, $"Operating System name: {osName}", false);
-
-                // userName
-                string userName = GetHardwareIdentifier("Win32_ComputerSystem", "UserName");
-                ExceptionLogger.Write(LogEvent.Info, $"System user name: {userName}", false);
-
-                // totalRam
-                string totalRAM = GetHardwareIdentifier("Win32_ComputerSystem", "TotalPhysicalMemory");
-                ExceptionLogger.Write(LogEvent.Info, $"Total system RAM: {totalRAM} bytes", false);
-
-                //systemDateTime
-                string systemDateTime = DateTime.Now.ToString();
-                ExceptionLogger.Write(LogEvent.Info, $"System date and time: {systemDateTime}", false);
-
-                // Get the Ethernet identifier (MAC address)
+                // 6
                 string ethernetId = "";
                 ManagementObjectSearcher ethernetSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapter WHERE PhysicalAdapter=True");
                 ManagementObjectCollection ethernetResults = ethernetSearcher.Get();
@@ -97,14 +42,25 @@ namespace Epidote.Protection
                 {
                     ethernetId += ethernetResult["MACAddress"] + " ";
                 }
-                ExceptionLogger.Write(LogEvent.Info, $"Ethernet identifier: {ethernetId}", false);
+                hardwareId += ethernetId;
 
+
+                // Hash the result
+                byte[] data = Encoding.ASCII.GetBytes(hardwareId);
+                byte[] hash = new SHA256Managed().ComputeHash(data);
+                string result = Convert.ToBase64String(hash);
+
+                ExceptionLogger.Write(LogEvent.Info, "basic: "+hardwareId + " encrypted: "+result, false);
+
+                return result;
             }
             catch (Exception ex)
             {
                 ExceptionLogger.Write(LogEvent.Error, $"error at: {ex.ToString()}", false);
+                return null;
             }
         }
+
 
         private static string GetHardwareIdentifier(string wmiClass, string wmiProperty)
         {

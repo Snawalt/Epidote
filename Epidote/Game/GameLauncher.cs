@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Guna.UI2;
+using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -36,42 +38,33 @@ namespace Epidote.Game
             "\\"
         );
 
-        // List to store detection phrases for when the game is starting
-        private static readonly List<string> _GameStartingDetection = new List<string>
-        {
-            "[Bridge] Found Textures dir:"
-        };
-
-        // List to store detection phrases for detecting freezes
-        private static readonly List<string> FreezeDetection = new List<string>
-        {
-            "[Client thread/INFO]: A gérés esetén csatlakozz fel!"
-        };
-
-        // List to store detection phrases for when the game is building a cache
-        private static readonly List<string> _CacheDetection = new List<string>
-        {
-            "[Client thread/INFO]: Building cache"
-        };
-
         // Event handler for when the process outputs data
+
+      
         private static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             // Detect if the game is building a cache
-            if (e.Data != null && _CacheDetection.Any(phrase => e.Data.Contains("[IchorPipeline/INFO] Loading Mixin runtime for LUNAR_MIXIN")))
+            if (e.Data != null && e.Data.Contains("LUNARCLIENT_STATUS_BUILD_CACHE"))
             {
-                Console.WriteLine(" Building cache... (This may take longer time depending on your computer)");
+                LandingUI LandingUI = new LandingUI();
+                LandingUI.Guna2Panel2.Visible = true;
             }
 
             // Check if the output contains any of the phrases in the _GameStartingDetection list
-            if (e.Data != null && _GameStartingDetection.Any(phrase => e.Data.Contains("[Bridge] Found Textures dir:")))
+
+            Epidote.LandingUI _landingUI = new Epidote.LandingUI();
+            Epidote.LandingUI._timer = new System.Windows.Forms.Timer();
+
+            if (e.Data != null && e.Data.Contains("[Genesis/INFO] Starting game!"))
             {
                 // A phrase was detected - take appropriate action
-                Console.WriteLine(" The client has launched");
+                Epidote.LandingUI._timer.Stop();
+                _landingUI.Guna2GroupBox2.Text = "Client has launched";
             }
             else
             {
-                // Console.WriteLine(e.Data);
+                ExceptionLogger.Write(LogEvent.Info, e.Data, false);
+                Console.WriteLine(e.Data);
             }
         }
 

@@ -49,10 +49,16 @@
             this.beta_text_groupbox = new Guna.UI2.WinForms.Guna2GroupBox();
             this.logout_button = new Guna.UI2.WinForms.Guna2GradientButton();
             this.progressbar_waiting = new Guna.UI2.WinForms.Guna2CircleProgressBar();
+            this.guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profile_freame_picturebox)).BeginInit();
             this.guna2Panel1.SuspendLayout();
+            this.guna2Panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Separator1
@@ -110,7 +116,6 @@
             this.guna2PictureBox2.TabIndex = 26;
             this.guna2PictureBox2.TabStop = false;
             this.guna2PictureBox2.UseTransparentBackground = true;
-            this.guna2PictureBox2.Click += new System.EventHandler(this.guna2PictureBox2_Click);
             // 
             // launch_button
             // 
@@ -143,7 +148,7 @@
             this.launch_button.TabIndex = 25;
             this.launch_button.Text = "Launch";
             this.launch_button.UseTransparentBackground = true;
-            this.launch_button.Click += new System.EventHandler(this.guna2GradientButton1_Click);
+            this.launch_button.Click += new System.EventHandler(this.launch_button_Click);
             // 
             // guna2HtmlLabel6
             // 
@@ -234,21 +239,23 @@
             this.profile_picture.FillColor = System.Drawing.Color.Transparent;
             this.profile_picture.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.profile_picture.ForeColor = System.Drawing.Color.White;
+            this.profile_picture.ImageSize = new System.Drawing.Size(32, 32);
             this.profile_picture.Location = new System.Drawing.Point(631, 11);
             this.profile_picture.Name = "profile_picture";
             this.profile_picture.Size = new System.Drawing.Size(32, 32);
             this.profile_picture.TabIndex = 30;
+            this.profile_picture.TextFormatNoPrefix = true;
             this.profile_picture.UseTransparentBackground = true;
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.Controls.Add(this.profile_freame_picturebox);
             this.guna2Panel1.Controls.Add(this.tos_button);
             this.guna2Panel1.Controls.Add(this.username_text);
             this.guna2Panel1.Controls.Add(this.website_button);
             this.guna2Panel1.Controls.Add(this.discord_button);
             this.guna2Panel1.Controls.Add(this.guna2PictureBox1);
             this.guna2Panel1.Controls.Add(this.guna2HtmlLabel1);
+            this.guna2Panel1.Controls.Add(this.profile_freame_picturebox);
             this.guna2Panel1.Controls.Add(this.profile_picture);
             this.guna2Panel1.Location = new System.Drawing.Point(-1, 1);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -301,7 +308,7 @@
             this.username_text.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.username_text.TextOffset = new System.Drawing.Point(5, 0);
             this.username_text.UseTransparentBackground = true;
-            this.username_text.Click += new System.EventHandler(this.guna2Button5_Click);
+            this.username_text.Click += new System.EventHandler(this.username_text_Click);
             // 
             // website_button
             // 
@@ -324,7 +331,7 @@
             this.website_button.TabIndex = 35;
             this.website_button.Text = "Website";
             this.website_button.UseTransparentBackground = true;
-            this.website_button.Click += new System.EventHandler(this.guna2Button3_Click);
+            this.website_button.Click += new System.EventHandler(this.website_button_Click);
             // 
             // discord_button
             // 
@@ -347,7 +354,7 @@
             this.discord_button.TabIndex = 34;
             this.discord_button.Text = "Discord";
             this.discord_button.UseTransparentBackground = true;
-            this.discord_button.Click += new System.EventHandler(this.guna2Button2_Click);
+            this.discord_button.Click += new System.EventHandler(this.discord_button_Click);
             // 
             // beta_text_groupbox
             // 
@@ -397,7 +404,7 @@
             this.logout_button.TabIndex = 27;
             this.logout_button.Text = "Logout";
             this.logout_button.UseTransparentBackground = true;
-            this.logout_button.Click += new System.EventHandler(this.guna2GradientButton2_Click);
+            this.logout_button.Click += new System.EventHandler(this.logout_button_Click);
             // 
             // progressbar_waiting
             // 
@@ -422,12 +429,81 @@
             this.progressbar_waiting.UseTransparentBackground = true;
             this.progressbar_waiting.Value = 50;
             // 
+            // guna2GroupBox1
+            // 
+            this.guna2GroupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.guna2GroupBox1.BorderRadius = 6;
+            this.guna2GroupBox1.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox1.FillColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.guna2GroupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.guna2GroupBox1.Location = new System.Drawing.Point(16, 202);
+            this.guna2GroupBox1.Name = "guna2GroupBox1";
+            this.guna2GroupBox1.ShadowDecoration.BorderRadius = 12;
+            this.guna2GroupBox1.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.guna2GroupBox1.ShadowDecoration.Depth = 6;
+            this.guna2GroupBox1.ShadowDecoration.Enabled = true;
+            this.guna2GroupBox1.Size = new System.Drawing.Size(118, 26);
+            this.guna2GroupBox1.TabIndex = 43;
+            this.guna2GroupBox1.Text = "Waiting";
+            this.guna2GroupBox1.TextOffset = new System.Drawing.Point(1, -7);
+            // 
+            // guna2HtmlLabel7
+            // 
+            this.guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel7.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.White;
+            this.guna2HtmlLabel7.IsSelectionEnabled = false;
+            this.guna2HtmlLabel7.Location = new System.Drawing.Point(16, 105);
+            this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
+            this.guna2HtmlLabel7.Size = new System.Drawing.Size(180, 30);
+            this.guna2HtmlLabel7.TabIndex = 44;
+            this.guna2HtmlLabel7.Text = "Starting your Game";
+            // 
+            // guna2Panel2
+            // 
+            this.guna2Panel2.Controls.Add(this.guna2HtmlLabel9);
+            this.guna2Panel2.Controls.Add(this.guna2HtmlLabel8);
+            this.guna2Panel2.Controls.Add(this.guna2HtmlLabel7);
+            this.guna2Panel2.Controls.Add(this.guna2GroupBox1);
+            this.guna2Panel2.Location = new System.Drawing.Point(38, 114);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(648, 333);
+            this.guna2Panel2.TabIndex = 45;
+            // 
+            // guna2HtmlLabel9
+            // 
+            this.guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(149)))), ((int)(((byte)(149)))));
+            this.guna2HtmlLabel9.IsSelectionEnabled = false;
+            this.guna2HtmlLabel9.Location = new System.Drawing.Point(16, 167);
+            this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
+            this.guna2HtmlLabel9.Size = new System.Drawing.Size(417, 19);
+            this.guna2HtmlLabel9.TabIndex = 47;
+            this.guna2HtmlLabel9.Text = "Please be patient, it depends on the performance of your computer.";
+            // 
+            // guna2HtmlLabel8
+            // 
+            this.guna2HtmlLabel8.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel8.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(149)))), ((int)(((byte)(149)))));
+            this.guna2HtmlLabel8.IsSelectionEnabled = false;
+            this.guna2HtmlLabel8.Location = new System.Drawing.Point(16, 144);
+            this.guna2HtmlLabel8.Name = "guna2HtmlLabel8";
+            this.guna2HtmlLabel8.Size = new System.Drawing.Size(559, 19);
+            this.guna2HtmlLabel8.TabIndex = 46;
+            this.guna2HtmlLabel8.Text = "We are currently updating our lunar files to bring you the best gaming experience" +
+    " possible.";
+            // 
             // LandingUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(734, 561);
+            this.Controls.Add(this.guna2Panel2);
             this.Controls.Add(this.progressbar_waiting);
             this.Controls.Add(this.beta_text_groupbox);
             this.Controls.Add(this.guna2Panel1);
@@ -452,6 +528,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.profile_freame_picturebox)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
+            this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,6 +557,11 @@
         private Guna.UI2.WinForms.Guna2GroupBox beta_text_groupbox;
         private Guna.UI2.WinForms.Guna2GradientButton logout_button;
         private Guna.UI2.WinForms.Guna2CircleProgressBar progressbar_waiting;
+        private Guna.UI2.WinForms.Guna2GroupBox guna2GroupBox1;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
     }
 }
 

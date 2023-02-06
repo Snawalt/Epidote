@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Net;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 
 namespace Epidote.Utils
@@ -11,7 +12,7 @@ namespace Epidote.Utils
     {
 
         // Current version number of the software
-        public const string CurrentVersion = "1.0.1";
+        public const string CurrentVersion = "1.0.0";
 
         // The latest version number as determined by the database
         public static string LatestVersion;
@@ -22,24 +23,13 @@ namespace Epidote.Utils
         // Check if the software is up to date
         public static bool isUpdateAvaiable()
         {
-            try
+            if (Epidote.MongoDB.MongoDBSettings.GetVersion() != CurrentVersion)
             {
-                foreach (var doc in Epidote.Database.MongoDBSettings.GetVersion()) //error
-                {
-                    LatestVersion = (string)doc["_version"];
-
-                    if (doc["_version"] == CurrentVersion)
-                        return false;
-                    else
-                        return true;
-                }
-                return false;
+                LatestVersion = Epidote.MongoDB.MongoDBSettings.GetVersion();
+                return true;
             }
-            catch(Exception ex)
-            {
-                ExceptionLogger.Write(LogEvent.Warning, $"Error: {ex.ToString()}", false);
+            else
                 return false;
-            }
         }
     }
 }

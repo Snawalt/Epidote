@@ -19,11 +19,10 @@ namespace Epidote
         [STAThread]
         static void Main()
         {
+            
             // Check if debugger is attached, put ! the start of the line
             if (Protection.AntiDebugging.DebuggingDetector.IsDebuggerAttached())
             {
-                Epidote.Database.MongoDBSettings.GetVersion();
-
                 // Check if there is an outdated version of the software
                 if (!Epidote.Utils.VersionChecker.isUpdateAvaiable())
                 {
