@@ -32,20 +32,6 @@ namespace Epidote
         // Flag to indicate whether the username is valid
         public static bool IsUsernameValid { get; set; }
 
-        // Public properties for Guna2Panel and Guna2GroupBox
-        private Guna2Panel _gunaPanel2;
-        public Guna2Panel Guna2Panel2
-        {
-            get { return _gunaPanel2; }
-        }
-
-        private Guna2GroupBox _groupBox2;
-        public Guna2GroupBox Guna2GroupBox2
-        {
-            get { return _groupBox2; }
-        }
-
-
         // Timer for building cache
         public static Timer _timer = new Timer();
         private int _dots = 1;
@@ -67,7 +53,6 @@ namespace Epidote
             guna2Panel2.Visible = false;
 
             // Initialize the _gunaPanel2 field in the constructor
-            _gunaPanel2 = new Guna2Panel();
         }
 
         // Timer event handler to update the text of guna2GroupBox1 with dots
@@ -78,7 +63,15 @@ namespace Epidote
             {
                 _dots = 0;
             }
-            guna2GroupBox1.Text = "Building cache" + new string('.', _dots);
+            if(Epidote.Game.GameLauncher.isBuidilingChache)
+            {
+                guna2GroupBox1.Text = "Building cache" + new string('.', _dots);
+            }
+            if (Epidote.Game.GameLauncher.isClientLaunched)
+            {
+                _timer.Stop();
+                guna2GroupBox1.Text = "The moon is shining";
+            }
         }
 
 

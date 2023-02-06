@@ -40,32 +40,26 @@ namespace Epidote.Game
 
         // Event handler for when the process outputs data
 
-      
+        public static bool isBuidilingChache;
+        public static bool isClientLaunched;
+
         private static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             // Detect if the game is building a cache
             if (e.Data != null && e.Data.Contains("LUNARCLIENT_STATUS_BUILD_CACHE"))
             {
-                LandingUI LandingUI = new LandingUI();
-                LandingUI.Guna2Panel2.Visible = true;
+                isBuidilingChache = true;
             }
+
 
             // Check if the output contains any of the phrases in the _GameStartingDetection list
-
-            Epidote.LandingUI _landingUI = new Epidote.LandingUI();
-            Epidote.LandingUI._timer = new System.Windows.Forms.Timer();
-
             if (e.Data != null && e.Data.Contains("[Genesis/INFO] Starting game!"))
             {
-                // A phrase was detected - take appropriate action
-                Epidote.LandingUI._timer.Stop();
-                _landingUI.Guna2GroupBox2.Text = "Client has launched";
+                isClientLaunched = true;
             }
-            else
-            {
-                ExceptionLogger.Write(LogEvent.Info, e.Data, false);
-                Console.WriteLine(e.Data);
-            }
+
+             ExceptionLogger.Write(LogEvent.Info, e.Data, false);
+             Console.WriteLine(e.Data);
         }
 
         public static void LaunchLunar()
