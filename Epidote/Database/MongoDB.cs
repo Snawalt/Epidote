@@ -15,6 +15,7 @@ namespace Epidote.MongoDB
         private static readonly string UsersCollection = "users";
         private static readonly string VersionCollection = "version";
         private static readonly string VersionField = "_version";
+        public static DateTime _startTime = new DateTime();
 
         private static MongoClient _client;
         private static IMongoDatabase _database;
@@ -70,14 +71,29 @@ namespace Epidote.MongoDB
                 if (existingPlayer != null)
                 {
                     Console.WriteLine("Player name already exists in the database.");
+
+                    // Calculate the number of times the program has been started
+                    int timesStarted = existingPlayer["timesStarted"].AsInt32 + 1;
+
+                    // Calculate the amount of time spent in the program
+                    TimeSpan timeSpent = TimeSpan.FromSeconds(existingPlayer["timeSpentInSeconds"].AsInt32 + (int)DateTime.Now.Subtract(_startTime).TotalSeconds);
+
+                    // Update the existing document
+                    _usersCollection.UpdateOne(Builders<BsonDocument>.Filter.Eq("_users", Epidote.Program._username),
+                        Builders<BsonDocument>.Update.Set("timesStarted", timesStarted).Set("timeSpentInSeconds", (int)timeSpent.TotalSeconds));
+
+                    Console.WriteLine("Player data updated successfully in the database.");
                     return;
                 }
 
+                // New player document
                 var document = new BsonDocument
-        {
-             { "_users", Epidote.Program._username },
-             { "_hwid", Epidote.Protection.HardwareInfo.GetHardwareInformationHash() }
-        };
+                {
+                    { "_users", Epidote.Program._username },
+                    { "_hwid", Epidote.Protection.HardwareInfo.GetHardwareInformationHash() },
+                    { "timesStarted", 1 },
+                    { "timeSpentInSeconds", 0 }
+                };
                 _usersCollection.InsertOne(document);
                 Console.WriteLine("Player name added successfully to the database.");
             }
@@ -86,6 +102,7 @@ namespace Epidote.MongoDB
                 Console.WriteLine("An error occurred while adding player name to the database: " + ex.Message);
             }
         }
+
 
     }
 }

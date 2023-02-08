@@ -9,13 +9,19 @@ namespace Epidote.Forms
     public partial class ErrorUI : Form
     {
 
-        [DllImport("DwmApi")] //System.Runtime.InteropServices
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+        [DllImport("DwmApi", EntryPoint = "DwmSetWindowAttribute")]
+        private static extern int SetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
 
         protected override void OnHandleCreated(EventArgs e)
         {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+            // Calls the DwmSetWindowAttribute function to set the window attribute
+            int result = SetWindowAttribute(Handle, 19, new[] { 1 }, 4);
+
+            // If the result of the function call is not 0, call the function again with a different attribute value
+            if (result != 0)
+            {
+                SetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+            }
         }
 
 

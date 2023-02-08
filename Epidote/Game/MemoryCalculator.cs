@@ -24,28 +24,38 @@ namespace Epidote.Game
         // Calculate the amount of memory to allocate to the JVM.
         public static int CalculateJavaMemoryAllocation()
         {
-            // Get the total amount of physically installed system memory.
-            long totalMemoryInKilobytes;
-            GetPhysicallyInstalledSystemMemory(out totalMemoryInKilobytes);
-
-            // If the operating system is 64-bit:
-            if (Environment.Is64BitOperatingSystem)
+            try
             {
-                // If the total system memory is less than 2GB:
-                if (totalMemoryInKilobytes / 1024 / MemoryAllocationRatio < 2)
-                {
-                    // Allocate the minimum memory to the JVM.
-                    javaMemoryAllocation = MinimumMemoryAllocation;
-                }
-                else
-                {
-                    // Calculate the memory allocation for the JVM.
-                    javaMemoryAllocation = totalMemoryInKilobytes / 1024 / MemoryAllocationRatio;
-                }
-            }
+                // Get the total amount of physically installed system memory.
+                long totalMemoryInKilobytes;
+                GetPhysicallyInstalledSystemMemory(out totalMemoryInKilobytes);
 
-            // Return the calculated memory allocation as an integer.
-            return Convert.ToInt32(javaMemoryAllocation);
+                // If the operating system is 64-bit:
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    // If the total system memory is less than 2GB:
+                    if (totalMemoryInKilobytes / 1024 / MemoryAllocationRatio < 2)
+                    {
+                        // Allocate the minimum memory to the JVM.
+                        javaMemoryAllocation = MinimumMemoryAllocation;
+                    }
+                    else
+                    {
+                        // Calculate the memory allocation for the JVM.
+                        javaMemoryAllocation = totalMemoryInKilobytes / 1024 / MemoryAllocationRatio;
+                    }
+                }
+
+                // Return the calculated memory allocation as an integer.
+                return Convert.ToInt32(javaMemoryAllocation);
+            }
+            catch(Exception ex)
+            {
+                // Log the exception to the exception logger
+                ExceptionLogger.Write(LogEvent.Error, $"An error occured: {ex}", false);
+                return Convert.ToInt32(javaMemoryAllocation);
+            }
+           
         }
     }
 

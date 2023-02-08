@@ -12,29 +12,30 @@ namespace Epidote.Protection
         {
             try
             {
+                // Initialize an empty string to store the combined result of all hardware information
                 string hardwareId = "";
 
-                // 1
+                // Get the unique identifier for the computer system product and add it to the hardwareId string
                 string systemGuid = GetHardwareIdentifier("Win32_ComputerSystemProduct", "UUID");
                 hardwareId += systemGuid;
 
-                // 2
+                // Get the processor id and add it to the hardwareId string
                 string processorId = GetHardwareIdentifier("Win32_Processor", "ProcessorId");
                 hardwareId += processorId;
 
-                // 3
+                // Get the motherboard serial number and add it to the hardwareId string
                 string motherboardId = GetHardwareIdentifier("Win32_BaseBoard", "SerialNumber");
                 hardwareId += motherboardId;
 
-                // 4
+                // Get the hard drive serial number and add it to the hardwareId string
                 string hardDriveId = GetHardwareIdentifier("Win32_DiskDrive", "SerialNumber");
                 hardwareId += hardDriveId;
 
-                // 5
+                // Get the operating system serial number and add it to the hardwareId string
                 string osSerial = GetHardwareIdentifier("Win32_OperatingSystem", "SerialNumber");
                 hardwareId += osSerial;
 
-                // 6
+                // Get the MAC address of the physical Ethernet adapter and add it to the hardwareId string
                 string ethernetId = "";
                 ManagementObjectSearcher ethernetSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapter WHERE PhysicalAdapter=True");
                 ManagementObjectCollection ethernetResults = ethernetSearcher.Get();
@@ -44,18 +45,20 @@ namespace Epidote.Protection
                 }
                 hardwareId += ethernetId;
 
-
-                // Hash the result
+                // Compute the SHA-256 hash of the combined hardware information and convert it to a base64 string
                 byte[] data = Encoding.ASCII.GetBytes(hardwareId);
                 byte[] hash = new SHA256Managed().ComputeHash(data);
                 string result = Convert.ToBase64String(hash);
 
-                ExceptionLogger.Write(LogEvent.Info, "basic: "+hardwareId + " encrypted: "+result, false);
+                // Log the original and encrypted hardware information
+                ExceptionLogger.Write(LogEvent.Info, "basic: " + hardwareId + " encrypted: " + result, false);
 
+                // Return the encrypted result
                 return result;
             }
             catch (Exception ex)
             {
+                // Log the error message if 
                 ExceptionLogger.Write(LogEvent.Error, $"error at: {ex.ToString()}", false);
                 return null;
             }

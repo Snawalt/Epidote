@@ -15,14 +15,21 @@ namespace Epidote
 {
     public partial class LandingUI : Form
     {
-        [DllImport("DwmApi")] // System.Runtime.InteropServices is being imported here for the DwmSetWindowAttribute method
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
+                 
         // Overrides the OnHandleCreated method to call the DwmSetWindowAttribute method with the Handle, 19, 1, 4
+        [DllImport("DwmApi", EntryPoint = "DwmSetWindowAttribute")]
+        private static extern int SetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+
         protected override void OnHandleCreated(EventArgs e)
         {
-            if (DwmSetWindowAttribute(Handle, 19, new[] { 1 }, 4) != 0)
-                DwmSetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+            // Calls the DwmSetWindowAttribute function to set the window attribute
+            int result = SetWindowAttribute(Handle, 19, new[] { 1 }, 4);
+
+            // If the result of the function call is not 0, call the function again with a different attribute value
+            if (result != 0)
+            {
+                SetWindowAttribute(Handle, 20, new[] { 1 }, 4);
+            }
         }
 
         // Constants for minimum and maximum username length
@@ -92,9 +99,6 @@ namespace Epidote
                 // Download and install any necessary addons
                 Epidote.Utils.FileDownloader.DownloadAndInstallAddons();
 
-                // Upload player data to the MongoDB database
-                Epidote.MongoDB.MongoDBSettings.UploadPlayerData();
-
                 // Set the text of the username_text control to the value stored in Program._username
                 username_text.Text = Program._username;
 
@@ -111,6 +115,9 @@ namespace Epidote
                         profile_freame_picturebox.Image = Bitmap.FromStream(stream);
                     }
                 }
+
+                // Upload player data to the MongoDB database
+                Epidote.MongoDB.MongoDBSettings.UploadPlayerData();
 
                 // Wait until the flag "stop" is set to true
                 while (!stop)
@@ -159,27 +166,31 @@ namespace Epidote
             Application.Exit();
         }
 
-        private async void launch_button_Click(object sender, EventArgs e)
+        private void launch_button_Click(object sender, EventArgs e)
         {
-            // This method launches the game using a background task to avoid freezing the UI thread.
-            await Task.Run(() =>
-            {
-              
+            guna2Panel2.Visible = true;
+            _timer.Start();
 
+
+            // This method launches the game using a background task to avoid freezing the UI thread.
+            Task.Run(() =>
+            {
+            
                 // Disable auto-login for the game.
                 Epidote.Game.ManipulateLunarLogin.DisableLunarAutoLogin();
 
                 // Calculate the memory allocation for the game.
                 Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation();
 
+
                 // Launch the game.
                 Epidote.Game.GameLauncher.LaunchLunar();
 
-             
+          
+
             });
 
-            guna2Panel2.Visible = true;
-            _timer.Start();
+          
         }
 
         private void username_text_Click(object sender, EventArgs e)
