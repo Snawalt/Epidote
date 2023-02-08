@@ -21,7 +21,7 @@ namespace Epidote
         {
             
             // Check if debugger is attached, put ! the start of the line
-            if (!Protection.AntiDebugging.DebuggingDetector.IsDebuggerAttached())
+            if (Protection.AntiDebugging.DebuggingDetector.IsDebuggerAttached())
             {
                 // Check if there is an outdated version of the software
                 if (!Epidote.Utils.VersionChecker.isUpdateAvaiable())

@@ -34,7 +34,7 @@ namespace Epidote.MongoDB
             }
             catch (Exception e)
             {
-                Console.WriteLine("An error occurred while connecting to the database: " + e.Message);
+                //
             }
         }
 
@@ -53,7 +53,6 @@ namespace Epidote.MongoDB
             var versionDocument = _versionCollection.Find(Builders<BsonDocument>.Filter.Empty).FirstOrDefault();
             if (versionDocument == null)
             {
-                Console.WriteLine("No version found in the 'version' collection.");
                 return null;
             }
 
@@ -70,8 +69,6 @@ namespace Epidote.MongoDB
                 var existingPlayer = _usersCollection.Find(Builders<BsonDocument>.Filter.Eq("_users", Epidote.Program._username)).FirstOrDefault();
                 if (existingPlayer != null)
                 {
-                    Console.WriteLine("Player name already exists in the database.");
-
                     // Calculate the number of times the program has been started
                     int timesStarted = existingPlayer["timesStarted"].AsInt32 + 1;
 
@@ -81,8 +78,6 @@ namespace Epidote.MongoDB
                     // Update the existing document
                     _usersCollection.UpdateOne(Builders<BsonDocument>.Filter.Eq("_users", Epidote.Program._username),
                         Builders<BsonDocument>.Update.Set("timesStarted", timesStarted).Set("timeSpentInSeconds", (int)timeSpent.TotalSeconds));
-
-                    Console.WriteLine("Player data updated successfully in the database.");
                     return;
                 }
 
@@ -95,11 +90,10 @@ namespace Epidote.MongoDB
                     { "timeSpentInSeconds", 0 }
                 };
                 _usersCollection.InsertOne(document);
-                Console.WriteLine("Player name added successfully to the database.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred while adding player name to the database: " + ex.Message);
+                //
             }
         }
 
