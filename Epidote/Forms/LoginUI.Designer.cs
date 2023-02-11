@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginUI));
             this.login_button = new Guna.UI2.WinForms.Guna2GradientButton();
             this.username_box = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -43,7 +42,6 @@
             this.guna2PictureBox3 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
             this.SuspendLayout();
@@ -105,23 +103,6 @@
             this.username_box.Size = new System.Drawing.Size(193, 32);
             this.username_box.TabIndex = 35;
             // 
-            // guna2PictureBox2
-            // 
-            this.guna2PictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox2.Image")));
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(480, 180);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.ShadowDecoration.BorderRadius = 120;
-            this.guna2PictureBox2.ShadowDecoration.Color = System.Drawing.Color.White;
-            this.guna2PictureBox2.ShadowDecoration.Depth = 1;
-            this.guna2PictureBox2.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(1);
-            this.guna2PictureBox2.Size = new System.Drawing.Size(200, 200);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox2.TabIndex = 34;
-            this.guna2PictureBox2.TabStop = false;
-            this.guna2PictureBox2.UseTransparentBackground = true;
-            // 
             // guna2HtmlLabel6
             // 
             this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
@@ -163,17 +144,19 @@
             this.errorGroupBox.BackColor = System.Drawing.Color.Transparent;
             this.errorGroupBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
             this.errorGroupBox.BorderRadius = 6;
+            this.errorGroupBox.BorderThickness = 0;
             this.errorGroupBox.CustomBorderColor = System.Drawing.Color.Transparent;
             this.errorGroupBox.FillColor = System.Drawing.Color.Transparent;
             this.errorGroupBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.errorGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.errorGroupBox.Location = new System.Drawing.Point(54, 366);
+            this.errorGroupBox.Location = new System.Drawing.Point(43, 360);
             this.errorGroupBox.Name = "errorGroupBox";
             this.errorGroupBox.ShadowDecoration.BorderRadius = 8;
             this.errorGroupBox.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.errorGroupBox.ShadowDecoration.Depth = 6;
+            this.errorGroupBox.ShadowDecoration.Depth = 1;
             this.errorGroupBox.ShadowDecoration.Enabled = true;
-            this.errorGroupBox.Size = new System.Drawing.Size(260, 28);
+            this.errorGroupBox.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(3);
+            this.errorGroupBox.Size = new System.Drawing.Size(260, 25);
             this.errorGroupBox.TabIndex = 41;
             this.errorGroupBox.Text = "The username you have entered is incorrect";
             this.errorGroupBox.TextOffset = new System.Drawing.Point(0, -6);
@@ -308,16 +291,16 @@
             this.Controls.Add(this.errorGroupBox);
             this.Controls.Add(this.login_button);
             this.Controls.Add(this.username_box);
-            this.Controls.Add(this.guna2PictureBox2);
             this.Controls.Add(this.guna2HtmlLabel6);
             this.Controls.Add(this.guna2HtmlLabel5);
             this.Controls.Add(this.guna2HtmlLabel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "LoginUI";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginUI_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
@@ -330,7 +313,6 @@
 
         private Guna.UI2.WinForms.Guna2GradientButton login_button;
         private Guna.UI2.WinForms.Guna2TextBox username_box;
-        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;

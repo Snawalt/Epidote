@@ -19,7 +19,6 @@ namespace Epidote
         [STAThread]
         static void Main()
         {
-            
             // Check if debugger is attached, put ! the start of the line
             if (Protection.AntiDebugging.DebuggingDetector.IsDebuggerAttached())
             {

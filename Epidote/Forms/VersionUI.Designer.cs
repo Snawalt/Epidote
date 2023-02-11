@@ -171,9 +171,9 @@
             this.guna2HtmlLabel4.IsSelectionEnabled = false;
             this.guna2HtmlLabel4.Location = new System.Drawing.Point(37, 278);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(315, 19);
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(356, 19);
             this.guna2HtmlLabel4.TabIndex = 45;
-            this.guna2HtmlLabel4.Text = "longer the current or most recent version available.";
+            this.guna2HtmlLabel4.Text = "Please download the new version from our discord server.";
             // 
             // guna2HtmlLabel3
             // 
@@ -183,9 +183,9 @@
             this.guna2HtmlLabel3.IsSelectionEnabled = false;
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(37, 255);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(378, 19);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(454, 19);
             this.guna2HtmlLabel3.TabIndex = 44;
-            this.guna2HtmlLabel3.Text = "This version is outdated. It refers to software, programs  or no";
+            this.guna2HtmlLabel3.Text = "The version you are using is outdated, the new version has been updated.";
             // 
             // guna2HtmlLabel2
             // 
@@ -214,7 +214,7 @@
             this.currentVersionBox.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
             this.currentVersionBox.ShadowDecoration.Depth = 6;
             this.currentVersionBox.ShadowDecoration.Enabled = true;
-            this.currentVersionBox.Size = new System.Drawing.Size(100, 28);
+            this.currentVersionBox.Size = new System.Drawing.Size(105, 28);
             this.currentVersionBox.TabIndex = 49;
             this.currentVersionBox.Text = "Current:";
             this.currentVersionBox.TextOffset = new System.Drawing.Point(0, -6);
@@ -222,19 +222,19 @@
             // latestVersionBox
             // 
             this.latestVersionBox.BackColor = System.Drawing.Color.Transparent;
-            this.latestVersionBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(222)))), ((int)(((byte)(128)))));
+            this.latestVersionBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
             this.latestVersionBox.BorderRadius = 6;
             this.latestVersionBox.CustomBorderColor = System.Drawing.Color.Transparent;
             this.latestVersionBox.FillColor = System.Drawing.Color.Transparent;
             this.latestVersionBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.latestVersionBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(222)))), ((int)(((byte)(128)))));
-            this.latestVersionBox.Location = new System.Drawing.Point(158, 317);
+            this.latestVersionBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.latestVersionBox.Location = new System.Drawing.Point(163, 317);
             this.latestVersionBox.Name = "latestVersionBox";
             this.latestVersionBox.ShadowDecoration.BorderRadius = 8;
-            this.latestVersionBox.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(222)))), ((int)(((byte)(128)))));
+            this.latestVersionBox.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
             this.latestVersionBox.ShadowDecoration.Depth = 6;
             this.latestVersionBox.ShadowDecoration.Enabled = true;
-            this.latestVersionBox.Size = new System.Drawing.Size(100, 28);
+            this.latestVersionBox.Size = new System.Drawing.Size(105, 28);
             this.latestVersionBox.TabIndex = 50;
             this.latestVersionBox.Text = "Available:";
             this.latestVersionBox.TextOffset = new System.Drawing.Point(0, -6);
@@ -243,7 +243,7 @@
             // 
             this.guna2Separator2.BackColor = System.Drawing.Color.Transparent;
             this.guna2Separator2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.guna2Separator2.Location = new System.Drawing.Point(136, 326);
+            this.guna2Separator2.Location = new System.Drawing.Point(141, 326);
             this.guna2Separator2.Name = "guna2Separator2";
             this.guna2Separator2.Size = new System.Drawing.Size(22, 10);
             this.guna2Separator2.TabIndex = 51;
@@ -264,8 +264,10 @@
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.guna2Separator1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "VersionUI";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VersionUI_FormClosing);
             this.Load += new System.EventHandler(this.VersionUI_Load);

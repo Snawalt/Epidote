@@ -28,6 +28,14 @@ namespace Epidote.Utils
         // Asynchronously checks if the required files and directories are present and in the correct state
         public static async Task<bool> IsReadyAsync()
         {
+            // Check if the user have a bad environment username
+
+            if (isUsernameContainsSpace())
+            {
+                errorMessage = "Your user account contains space characters.";
+                return false;
+            }
+
             // Check if the lunar jre path is invalid
 
             if (isProblemWithLunarJrePath())
@@ -97,6 +105,14 @@ namespace Epidote.Utils
             await Task.WhenAll(dirTasks);
             // Add up the sizes of the files and subdirectories
             return size + fileTasks.Sum() + dirTasks.Sum(t => t.Result);
+        }
+
+        public static bool isUsernameContainsSpace()
+        {
+            if (Environment.GetEnvironmentVariable("USERPROFILE").ToString().Contains(" "))
+                return true;
+            else
+                return false;
         }
 
         // Check if a file is damaged

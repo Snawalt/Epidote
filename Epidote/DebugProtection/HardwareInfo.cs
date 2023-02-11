@@ -50,9 +50,6 @@ namespace Epidote.Protection
                 byte[] hash = new SHA256Managed().ComputeHash(data);
                 string result = Convert.ToBase64String(hash);
 
-                // Log the original and encrypted hardware information
-                ExceptionLogger.Write(LogEvent.Info, "basic: " + hardwareId + " encrypted: " + result, false);
-
                 // Return the encrypted result
                 return result;
             }

@@ -52,12 +52,12 @@ namespace Epidote
             // Set the CheckForIllegalCrossThreadCalls property to false
             CheckForIllegalCrossThreadCalls = false;
 
+
             // Configure the timer for building cache
             _timer.Interval = 500;
             _timer.Tick += Timer_Tick;
 
             // Set the visibility of guna2Panel2 to false
-            guna2Panel2.Visible = false;
 
             // Initialize the _gunaPanel2 field in the constructor
         }
@@ -84,9 +84,14 @@ namespace Epidote
 
         private void LandingUI_Load(object sender, EventArgs e)
         {
+            current_rank_text.Text = Epidote.MongoDB.MongoDBSettings.GetBadgeFieldValue().ToString();
+
             // Start a new task to run the following code in parallel with the UI thread
             Task.Run(() =>
             {
+
+                // Bring the main panel
+
                 // A flag to stop the loop
                 bool stop = false;
 
@@ -118,6 +123,7 @@ namespace Epidote
 
                 // Upload player data to the MongoDB database
                 Epidote.MongoDB.MongoDBSettings.UploadPlayerData();
+                Epidote.MongoDB.MongoDBSettings.IncrementCounter();
 
                 // Wait until the flag "stop" is set to true
                 while (!stop)
@@ -168,14 +174,12 @@ namespace Epidote
 
         private void launch_button_Click(object sender, EventArgs e)
         {
-            guna2Panel2.Visible = true;
+            guna2TabControl1.SelectedTab = tabPage2;
+
             _timer.Start();
-
-
             // This method launches the game using a background task to avoid freezing the UI thread.
             Task.Run(() =>
             {
-            
                 // Disable auto-login for the game.
                 Epidote.Game.ManipulateLunarLogin.DisableLunarAutoLogin();
 
@@ -186,11 +190,7 @@ namespace Epidote
                 // Launch the game.
                 Epidote.Game.GameLauncher.LaunchLunar();
 
-          
-
             });
-
-          
         }
 
         private void username_text_Click(object sender, EventArgs e)
@@ -201,22 +201,6 @@ namespace Epidote
             Process.Start(_namemcProfile);
         }
 
-        private void website_button_Click(object sender, EventArgs e)
-        {
-            // This method opens the Epidote website.
-            string websiteLink = "https://epidote.lol";
-            // Start the URL using the default browser.
-            Process.Start(websiteLink);
-        }
-
-        private void discord_button_Click(object sender, EventArgs e)
-        {
-            // This method opens the Epidote Discord server invite link.
-            string inviteLink = "https://discord.gg/nT73fjuDQp";
-            // Start the URL using the default browser.
-            Process.Start(inviteLink);
-        }
-
         private void logout_button_Click(object sender, EventArgs e)
         {
             // This method deletes the player's data and logs out of the game.
@@ -224,6 +208,21 @@ namespace Epidote
             Directory.Delete(Epidote.Utils.FileVerification._usernameDirectory, true);
             // Exit the application.
             Application.Exit();
+        }
+
+        private void profile_button_Click(object sender, EventArgs e)
+        {
+            guna2TabControl1.SelectedTab = tabPage3;
+        }
+
+        private void dashboard_button_Click(object sender, EventArgs e)
+        {
+            guna2TabControl1.SelectedTab = tabPage1;
+        }
+
+        private void settings_button_Click(object sender, EventArgs e)
+        {
+            guna2TabControl1.SelectedTab = tabPage4;
         }
     }
 }

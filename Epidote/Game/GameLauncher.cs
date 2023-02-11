@@ -96,7 +96,7 @@ namespace Epidote.Game
             var lunarJrePath = Epidote.Game.LunarJreCheck.GetLunarJrePath();
 
             // Get the process arguments
-            var processArguments = GetArgumentsWithSolarTweaks();
+            var processArguments = GetBasicArguments();
 
             try
             {
@@ -164,11 +164,11 @@ namespace Epidote.Game
             return @"--add-modules jdk.naming.dns --add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming -Djna.boot.library.path=natives -Dlog4j2.formatMsgNoLookups=true --add-opens java.base/java.io=ALL-UNNAMED -Xverify:none -Xms" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xmx" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Djava.library.path=natives -XX:+DisableAttachMechanism -javaagent:" + _HitDelayFixPath + @" -javaagent:" + _CrackedAccountPath + "=" + Epidote.Program._username + @" -cp optifine-0.1.0-SNAPSHOT-all.jar;genesis-0.1.0-SNAPSHOT-all.jar;v1_8-0.1.0-SNAPSHOT-all.jar;common-0.1.0-SNAPSHOT-all.jar;lunar-lang.jar;lunar-emote.jar;lunar.jar com.moonsworth.lunar.genesis.Genesis --version 1.8.9 --accessToken 0 --assetIndex 1.8 --userProperties {} --gameDir " + _AppDataPath + @".minecraft --texturesDir " + Environment.GetEnvironmentVariable("USERPROFILE") + @"\.lunarclient\textures --launcherVersion 2.14.0 --hwid 0 --installationId 0 --width 854 --height 480 --workingDirectory . --classpathDir . --ichorClassPath optifine-0.1.0-SNAPSHOT-all.jar,genesis-0.1.0-SNAPSHOT-all.jar,v1_8-0.1.0-SNAPSHOT-all.jar,common-0.1.0-SNAPSHOT-all.jar,lunar-lang.jar,lunar-emote.jar,lunar.jar --ichorExternalFiles OptiFine_v1_8.jar";
         }
 
-        private static string GetArgumentsWithSolarTweaks()
-        {
-            // Return the process arguments
+        //private static string GetArgumentsWithSolarTweaks()
+        //{
+        //    // Return the process arguments
 
-            return @"--add-modules jdk.naming.dns --add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming -Djna.boot.library.path=natives -Dlog4j2.formatMsgNoLookups=true --add-opens java.base/java.io=ALL-UNNAMED -javaagent:" + _solarEnginePath + @"=" + _solarEngineConfig + @" -XX:+DisableAttachMechanism -Xmx" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xmn" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xms" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Djava.library.path=natives -Dsolar.launchType=launcher -cp common-0.1.0-SNAPSHOT-all.jar;v1_8-0.1.0-SNAPSHOT-all.jar;optifine-0.1.0-SNAPSHOT-all.jar;genesis-0.1.0-SNAPSHOT-all.jar;lunar-lang.jar;lunar-emote.jar;lunar.jar com.moonsworth.lunar.genesis.Genesis --version 1.8.9 --accessToken 0 --assetIndex 1.8 --userProperties {} --gameDir " + _minecraftDirectory + @" --assetsDir " + _assetsDirectory + @" --texturesDir " + _texturesDirectory + @" --width 854 --height 480 --ichorClassPath common-0.1.0-SNAPSHOT-all.jar,v1_8-0.1.0-SNAPSHOT-all.jar,optifine-0.1.0-SNAPSHOT-all.jar,genesis-0.1.0-SNAPSHOT-all.jar,lunar-lang.jar,lunar-emote.jar,lunar.jar --ichorExternalFiles OptiFine_v1_8.jar --workingDirectory . --classpathDir " + _multiverDirectory + @" --installationId 0 --hwid 0";
-        }
+        //    return @"--add-modules jdk.naming.dns --add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming -Djna.boot.library.path=natives -Dlog4j2.formatMsgNoLookups=true --add-opens java.base/java.io=ALL-UNNAMED -javaagent:" + _solarEnginePath + @"=" + _solarEngineConfig + @" -XX:+DisableAttachMechanism -Xmx" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xmn" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xms" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Djava.library.path=natives -Dsolar.launchType=launcher -cp common-0.1.0-SNAPSHOT-all.jar;v1_8-0.1.0-SNAPSHOT-all.jar;optifine-0.1.0-SNAPSHOT-all.jar;genesis-0.1.0-SNAPSHOT-all.jar;lunar-lang.jar;lunar-emote.jar;lunar.jar com.moonsworth.lunar.genesis.Genesis --version 1.8.9 --accessToken 0 --assetIndex 1.8 --userProperties {} --gameDir " + _minecraftDirectory + @" --assetsDir " + _assetsDirectory + @" --texturesDir " + _texturesDirectory + @" --width 854 --height 480 --ichorClassPath common-0.1.0-SNAPSHOT-all.jar,v1_8-0.1.0-SNAPSHOT-all.jar,optifine-0.1.0-SNAPSHOT-all.jar,genesis-0.1.0-SNAPSHOT-all.jar,lunar-lang.jar,lunar-emote.jar,lunar.jar --ichorExternalFiles OptiFine_v1_8.jar --workingDirectory . --classpathDir " + _multiverDirectory + @" --installationId 0 --hwid 0";
+        //}
     }
 }
