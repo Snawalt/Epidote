@@ -30,11 +30,11 @@ namespace Epidote.Utils
         {
             // Check if the user have a bad environment username
 
-            if (isUsernameContainsSpace())
-            {
-                errorMessage = "Your user account contains space characters.";
-                return false;
-            }
+            //if (isUsernameContainsSpace())
+            //{
+            //    errorMessage = "Your user account contains space characters.";
+            //    return false;
+            //}
 
             // Check if the lunar jre path is invalid
 

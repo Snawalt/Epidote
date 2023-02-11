@@ -15,7 +15,7 @@ namespace Epidote
 {
     public partial class LandingUI : Form
     {
-                 
+        
         // Overrides the OnHandleCreated method to call the DwmSetWindowAttribute method with the Handle, 19, 1, 4
         [DllImport("DwmApi", EntryPoint = "DwmSetWindowAttribute")]
         private static extern int SetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
@@ -31,6 +31,7 @@ namespace Epidote
                 SetWindowAttribute(Handle, 20, new[] { 1 }, 4);
             }
         }
+
 
         // Constants for minimum and maximum username length
         public const int MIN_USERNAME_LENGTH = 3;
@@ -52,7 +53,6 @@ namespace Epidote
             // Set the CheckForIllegalCrossThreadCalls property to false
             CheckForIllegalCrossThreadCalls = false;
 
-
             // Configure the timer for building cache
             _timer.Interval = 500;
             _timer.Tick += Timer_Tick;
@@ -62,15 +62,26 @@ namespace Epidote
             // Initialize the _gunaPanel2 field in the constructor
         }
 
+        public static bool isAutoFreezeSupportEnabled = false;
+
+
         // Timer event handler to update the text of guna2GroupBox1 with dots
+
+        [STAThread]
+
         private void Timer_Tick(object sender, EventArgs e)
         {
+
             _dots++;
             if (_dots > 3)
             {
                 _dots = 0;
             }
-            if(Epidote.Game.GameLauncher.isBuidilingChache)
+
+            guna2GroupBox1.Text = "Waiting" + new string('.', _dots);
+
+
+            if (Epidote.Game.GameLauncher.isBuidilingChache)
             {
                 guna2GroupBox1.Text = "Building cache" + new string('.', _dots);
             }
@@ -78,17 +89,37 @@ namespace Epidote
             {
                 _timer.Stop();
                 guna2GroupBox1.Text = "The moon is shining";
+                this.Hide();
             }
         }
 
+        public static string setAnyDeskIDtoClipboard()
+        {
+            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),"AnyDesk","system.conf");
+            string anyNetId = string.Empty;
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.StartsWith("ad.anynet.id"))
+                    {
+                        anyNetId = line.Split('=')[1];
+                        break;
+                    }
+                }
+            }
+
+            return anyNetId;
+        }
 
         private void LandingUI_Load(object sender, EventArgs e)
         {
-            current_rank_text.Text = Epidote.MongoDB.MongoDBSettings.GetBadgeFieldValue().ToString();
-
             // Start a new task to run the following code in parallel with the UI thread
             Task.Run(() =>
             {
+
 
                 // Bring the main panel
 
@@ -172,12 +203,18 @@ namespace Epidote
             Application.Exit();
         }
 
+    
+
         private void launch_button_Click(object sender, EventArgs e)
         {
+            dashboard_button.Visible = false;
+            settings_button.Visible = false;
+            profile_button.Visible = false;
             guna2TabControl1.SelectedTab = tabPage2;
 
             _timer.Start();
             // This method launches the game using a background task to avoid freezing the UI thread.
+
             Task.Run(() =>
             {
                 // Disable auto-login for the game.
@@ -185,7 +222,6 @@ namespace Epidote
 
                 // Calculate the memory allocation for the game.
                 Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation();
-
 
                 // Launch the game.
                 Epidote.Game.GameLauncher.LaunchLunar();
@@ -213,16 +249,37 @@ namespace Epidote
         private void profile_button_Click(object sender, EventArgs e)
         {
             guna2TabControl1.SelectedTab = tabPage3;
+            resetButtonColors();
+            profile_button.ForeColor = Color.White;
         }
 
         private void dashboard_button_Click(object sender, EventArgs e)
         {
             guna2TabControl1.SelectedTab = tabPage1;
+            resetButtonColors();
+            dashboard_button.ForeColor = Color.White;
         }
 
         private void settings_button_Click(object sender, EventArgs e)
         {
             guna2TabControl1.SelectedTab = tabPage4;
+            resetButtonColors();
+            settings_button.ForeColor = Color.White;
+        }
+
+        private void resetButtonColors()
+        {
+            profile_button.ForeColor = Color.FromArgb(153, 153, 153);
+            dashboard_button.ForeColor = Color.FromArgb(153, 153, 153);
+            settings_button.ForeColor = Color.FromArgb(153, 153, 153);
+        }
+
+        private void freeze_support_switch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (freeze_support_switch.Checked)
+                isAutoFreezeSupportEnabled = true;
+            else
+                isAutoFreezeSupportEnabled = false;
         }
     }
 }

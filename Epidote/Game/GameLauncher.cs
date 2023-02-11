@@ -6,6 +6,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Epidote.Game
 {
@@ -63,8 +66,14 @@ namespace Epidote.Game
         public static bool isBuidilingChache;
         public static bool isClientLaunched;
 
+
+        [STAThread]
         private static void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
+            string freezeDetection1 = "[Client thread/INFO]:";
+            string freezeDetection2 = "A g�rd�l�keny megold�s miatt csatlakozz fel!";
+
+
             // Detect if the game is building a cache
             if (e.Data != null && e.Data.Contains("LUNARCLIENT_STATUS_BUILD_CACHE"))
             {
@@ -73,20 +82,35 @@ namespace Epidote.Game
 
 
             // Check if the output contains any of the phrases in the _GameStartingDetection list
-            if (e.Data != null && e.Data.Contains("[Genesis/INFO] Starting game!"))
+            if (e.Data != null && e.Data.Contains("[Bridge] Setting Minecraft Client instance to net.minecraft.client.Minecraft"))
             {
                 isClientLaunched = true;
+            }
+
+            if(Epidote.LandingUI.isAutoFreezeSupportEnabled)
+            {
+                // Check if the player freezed
+                if (e.Data != null && e.Data.Contains(freezeDetection1) && e.Data.Contains(freezeDetection2))
+                {
+                    Thread thread = new Thread(new ThreadStart(() =>
+                    {
+                        Clipboard.SetText(Epidote.LandingUI.setAnyDeskIDtoClipboard());
+                    }));
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.Start();
+                    thread.Join();
+                }
             }
 
             ExceptionLogger.Write(LogEvent.Info, e.Data, false);
             Console.WriteLine(e.Data);
         }
 
+        private static Process process;
         public static void LaunchLunar()
         {
-            Console.WriteLine("-javaagent:" + _solarEnginePath + "=" + _solarEngineConfig);
+            ExceptionLogger.Write(LogEvent.Info,GetBasicArguments().ToString(), false);
 
-            // Get the path to the user profile directory
             var userProfile = Environment.GetEnvironmentVariable("USERPROFILE");
 
             // Combine the user profile path with the path to the LunarClient directory
@@ -101,7 +125,7 @@ namespace Epidote.Game
             try
             {
                 // Create a new process object
-                var process = new Process
+                process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
@@ -131,7 +155,7 @@ namespace Epidote.Game
                 process.OutputDataReceived += Process_OutputDataReceived;
 
                 // Subscribe to the Exited event and close the launched process when it exits
-                process.Exited += new EventHandler((sender, args) => Environment.Exit(0));
+                //process.Exited += new EventHandler((sender, args) => Environment.Exit(0));
 
                 // Subscribe to the ProcessExit event and close the launched process if it is still running when the application exits
                 AppDomain.CurrentDomain.ProcessExit += new EventHandler((sender, args) =>
@@ -160,15 +184,10 @@ namespace Epidote.Game
         private static string GetBasicArguments()
         {
             //Return the process arguments
+            string args = @"--add-modules jdk.naming.dns --add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming -Djna.boot.library.path=natives -Dlog4j2.formatMsgNoLookups=true --add-opens java.base/java.io=ALL-UNNAMED -Xms"+ Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation()+ @"m -Xmx"+ Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation()+@"m -Djava.library.path=natives -cp ""argon-0.1.0-SNAPSHOT-all.jar;common-0.1.0-SNAPSHOT-all.jar;fabric-0.1.0-SNAPSHOT-all.jar;genesis-0.1.0-SNAPSHOT-all.jar;lunar-emote.jar;lunar-lang.jar;lunar.jar;modern-0.1.0-SNAPSHOT-all.jar;optifine-0.1.0-SNAPSHOT-all.jar;sodium-0.1.0-SNAPSHOT-all.jar;v1_8-0.1.0-SNAPSHOT-all.jar"" ""-javaagent:" + _CrackedAccountPath+"="+Epidote.Program._username+@"""  ""-javaagent:" + _HitDelayFixPath+@"="" com.moonsworth.lunar.genesis.Genesis --version 1.8 --accessToken 0 --assetIndex 1.8 --userProperties {} --gameDir """+_minecraftDirectory+ @""" --launcherVersion 2.12.7 --width 640 --height 480 --workingDirectory . --classpathDir . --ichorClassPath argon-0.1.0-SNAPSHOT-all.jar,common-0.1.0-SNAPSHOT-all.jar,fabric-0.1.0-SNAPSHOT-all.jar,genesis-0.1.0-SNAPSHOT-all.jar,lunar-emote.jar,lunar-lang.jar,lunar.jar,modern-0.1.0-SNAPSHOT-all.jar,optifine-0.1.0-SNAPSHOT-all.jar,sodium-0.1.0-SNAPSHOT-all.jar,v1_8-0.1.0-SNAPSHOT-all.jar --ichorExternalFiles OptiFine_v1_8.jar";
 
-            return @"--add-modules jdk.naming.dns --add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming -Djna.boot.library.path=natives -Dlog4j2.formatMsgNoLookups=true --add-opens java.base/java.io=ALL-UNNAMED -Xverify:none -Xms" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xmx" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Djava.library.path=natives -XX:+DisableAttachMechanism -javaagent:" + _HitDelayFixPath + @" -javaagent:" + _CrackedAccountPath + "=" + Epidote.Program._username + @" -cp optifine-0.1.0-SNAPSHOT-all.jar;genesis-0.1.0-SNAPSHOT-all.jar;v1_8-0.1.0-SNAPSHOT-all.jar;common-0.1.0-SNAPSHOT-all.jar;lunar-lang.jar;lunar-emote.jar;lunar.jar com.moonsworth.lunar.genesis.Genesis --version 1.8.9 --accessToken 0 --assetIndex 1.8 --userProperties {} --gameDir " + _AppDataPath + @".minecraft --texturesDir " + Environment.GetEnvironmentVariable("USERPROFILE") + @"\.lunarclient\textures --launcherVersion 2.14.0 --hwid 0 --installationId 0 --width 854 --height 480 --workingDirectory . --classpathDir . --ichorClassPath optifine-0.1.0-SNAPSHOT-all.jar,genesis-0.1.0-SNAPSHOT-all.jar,v1_8-0.1.0-SNAPSHOT-all.jar,common-0.1.0-SNAPSHOT-all.jar,lunar-lang.jar,lunar-emote.jar,lunar.jar --ichorExternalFiles OptiFine_v1_8.jar";
+            return args;
         }
 
-        //private static string GetArgumentsWithSolarTweaks()
-        //{
-        //    // Return the process arguments
-
-        //    return @"--add-modules jdk.naming.dns --add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming -Djna.boot.library.path=natives -Dlog4j2.formatMsgNoLookups=true --add-opens java.base/java.io=ALL-UNNAMED -javaagent:" + _solarEnginePath + @"=" + _solarEngineConfig + @" -XX:+DisableAttachMechanism -Xmx" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xmn" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Xms" + Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation() + @"m -Djava.library.path=natives -Dsolar.launchType=launcher -cp common-0.1.0-SNAPSHOT-all.jar;v1_8-0.1.0-SNAPSHOT-all.jar;optifine-0.1.0-SNAPSHOT-all.jar;genesis-0.1.0-SNAPSHOT-all.jar;lunar-lang.jar;lunar-emote.jar;lunar.jar com.moonsworth.lunar.genesis.Genesis --version 1.8.9 --accessToken 0 --assetIndex 1.8 --userProperties {} --gameDir " + _minecraftDirectory + @" --assetsDir " + _assetsDirectory + @" --texturesDir " + _texturesDirectory + @" --width 854 --height 480 --ichorClassPath common-0.1.0-SNAPSHOT-all.jar,v1_8-0.1.0-SNAPSHOT-all.jar,optifine-0.1.0-SNAPSHOT-all.jar,genesis-0.1.0-SNAPSHOT-all.jar,lunar-lang.jar,lunar-emote.jar,lunar.jar --ichorExternalFiles OptiFine_v1_8.jar --workingDirectory . --classpathDir " + _multiverDirectory + @" --installationId 0 --hwid 0";
-        //}
     }
 }

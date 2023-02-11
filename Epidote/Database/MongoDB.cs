@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,10 @@ namespace Epidote.MongoDB
         private static readonly string TotalTimeSpentField = "_hoursPlayed";
         private static readonly string UserIdField = "_userId";
         private static readonly string BadgeField = "_badge";
+        private static readonly string hwidField = "_hwid";
+
+        static string userId = Guid.NewGuid().ToString();
+
         private static readonly Dictionary<int, string> Badges = new Dictionary<int, string>
         {
             { 0, "Test" },
@@ -47,42 +52,6 @@ namespace Epidote.MongoDB
         private static IMongoCollection<BsonDocument> _usersCollection;
         private static IMongoCollection<BsonDocument> _versionCollection;
         private static IMongoCollection<BsonDocument> _globalCounterCollection;
-
-        static string userId = Guid.NewGuid().ToString();
-
-        public static string GetBadgeFieldValue()
-        {
-            Connect();
-
-            // Filter the users collection to find the user with the given userId
-            var filter = Builders<BsonDocument>.Filter.Eq(UserIdField, userId);
-            var result = _usersCollection.Find(filter).FirstOrDefault();
-
-            // Check if the user was found
-            if (result != null)
-            {
-                int badgeValue = result[BadgeField].AsInt32;
-
-                // Check if the badge value is a key in the Badges dictionary
-                if (Badges.ContainsKey(badgeValue))
-                {
-                    // Return the corresponding badge name for the user
-                    return Badges[badgeValue];
-                }
-                else
-                {
-                    // Return "Unknown" if the badge value is not found in the dictionary
-                    return "Unknown";
-                }
-            }
-            else
-            {
-                // Return "User not found" if the user was not found
-                return "User not found";
-            }
-        }
-
-
 
         public static void UploadPlayerData()
         {
@@ -119,8 +88,6 @@ namespace Epidote.MongoDB
                     return;
                 }
 
-                // New player document
-                var userId = Guid.NewGuid().ToString();
                 var document = new BsonDocument
                     {
                         { UserIdField, userId },
@@ -134,7 +101,7 @@ namespace Epidote.MongoDB
             }
             catch (Exception ex)
             {
-                // Log or handle the exception as needed
+                ExceptionLogger.Write(LogEvent.Error, $"error at: {ex.ToString()}", false);
             }
         }
 
@@ -159,9 +126,9 @@ namespace Epidote.MongoDB
                 _globalCounterCollection = _database.GetCollection<BsonDocument>(GlobalCounterCollection);
                 _startTime = DateTime.Now;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //
+                ExceptionLogger.Write(LogEvent.Error, $"error at: {ex.ToString()}", false);
             }
         }
 
