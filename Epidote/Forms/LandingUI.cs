@@ -1,10 +1,12 @@
 ﻿using Guna.UI2.WinForms;
+using Microsoft.VisualBasic.Devices;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Management;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -57,10 +59,10 @@ namespace Epidote
             _timer.Interval = 500;
             _timer.Tick += Timer_Tick;
 
-            // Set the visibility of guna2Panel2 to false
-
-            // Initialize the _gunaPanel2 field in the constructor
         }
+
+        public static int sliderSetMemoryValue;
+
 
         public static bool isAutoFreezeSupportEnabled = false;
 
@@ -114,17 +116,28 @@ namespace Epidote
             return anyNetId;
         }
 
+        static double GetMemory()
+        {
+            double totalPhysicalMemory = 0;
+            ObjectQuery winQuery = new ObjectQuery("SELECT * FROM Win32_PhysicalMemory");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(winQuery);
+            ManagementObjectCollection results = searcher.Get();
+            foreach (ManagementObject result in results)
+            {
+                totalPhysicalMemory += Convert.ToDouble(result["Capacity"]) / 1024.0 / 1024.0 / 1024.0;
+            }
+            return totalPhysicalMemory;
+        }
+
         private void LandingUI_Load(object sender, EventArgs e)
         {
             // Start a new task to run the following code in parallel with the UI thread
             Task.Run(() =>
             {
-
-
-                // Bring the main panel
-
                 // A flag to stop the loop
                 bool stop = false;
+
+                guna2GroupBox7.Visible = false;
 
                 // Hide the launch button until the rest of the code has finished
                 launch_button.Visible = false;
@@ -151,6 +164,13 @@ namespace Epidote
                         profile_freame_picturebox.Image = Bitmap.FromStream(stream);
                     }
                 }
+
+
+                double maxMemory = GetMemory();
+                memorySlider.Maximum = (int)Math.Floor(maxMemory);
+
+                // Calculate the memory allocation for the game.
+                Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation();
 
                 // Upload player data to the MongoDB database
                 Epidote.MongoDB.MongoDBSettings.UploadPlayerData();
@@ -210,7 +230,7 @@ namespace Epidote
             dashboard_button.Visible = false;
             settings_button.Visible = false;
             profile_button.Visible = false;
-            guna2TabControl1.SelectedTab = tabPage2;
+            guna2TabControl1.SelectedTab = starting_game_tab;
 
             _timer.Start();
             // This method launches the game using a background task to avoid freezing the UI thread.
@@ -219,9 +239,6 @@ namespace Epidote
             {
                 // Disable auto-login for the game.
                 Epidote.Game.ManipulateLunarLogin.DisableLunarAutoLogin();
-
-                // Calculate the memory allocation for the game.
-                Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation();
 
                 // Launch the game.
                 Epidote.Game.GameLauncher.LaunchLunar();
@@ -248,21 +265,21 @@ namespace Epidote
 
         private void profile_button_Click(object sender, EventArgs e)
         {
-            guna2TabControl1.SelectedTab = tabPage3;
+            guna2TabControl1.SelectedTab = profile_tab;
             resetButtonColors();
             profile_button.ForeColor = Color.White;
         }
 
         private void dashboard_button_Click(object sender, EventArgs e)
         {
-            guna2TabControl1.SelectedTab = tabPage1;
+            guna2TabControl1.SelectedTab = dashboar_tab;
             resetButtonColors();
             dashboard_button.ForeColor = Color.White;
         }
 
         private void settings_button_Click(object sender, EventArgs e)
         {
-            guna2TabControl1.SelectedTab = tabPage4;
+            guna2TabControl1.SelectedTab = settings_tab;
             resetButtonColors();
             settings_button.ForeColor = Color.White;
         }
@@ -280,6 +297,30 @@ namespace Epidote
                 isAutoFreezeSupportEnabled = true;
             else
                 isAutoFreezeSupportEnabled = false;
+        }
+
+        private void guna2TrackBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            guna2GroupBox7.Visible = true;
+            try
+            {
+                Task.Run(() => {
+
+
+                    int selectedMemory = memorySlider.Value;
+                    float percentage = (float)selectedMemory / memorySlider.Maximum;
+
+                    if (memorySlider != null)
+                    {
+                        guna2GroupBox7.Text = selectedMemory + " GB | " + $"{percentage * 100:0.##}%";
+                        selectedMemory = sliderSetMemoryValue;
+                    }
+                });
+            }
+            catch(Exception ex)
+            {
+                ExceptionLogger.Write(LogEvent.Error, "Something wrong happend: " + ex.ToString(), false);
+            }
         }
     }
 }

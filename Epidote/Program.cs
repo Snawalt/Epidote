@@ -19,57 +19,48 @@ namespace Epidote
         [STAThread]
         static void Main()
         {
-            // Check if debugger is attached, put ! the start of the line
-            if (Protection.AntiDebugging.DebuggingDetector.IsDebuggerAttached())
+            // Check if there is an outdated version of the software
+            if (!Epidote.Utils.VersionChecker.isUpdateAvaiable())
             {
-                // Check if there is an outdated version of the software
-                if (!Epidote.Utils.VersionChecker.isUpdateAvaiable())
+
+                // Check if the LunarFiles are ready to be used
+                if (Epidote.Utils.FileVerification.IsReadyAsync().Result == false)
                 {
 
-                    // Check if the LunarFiles are ready to be used
-                    if (Epidote.Utils.FileVerification.IsReadyAsync().Result == false)
-                    {
-
-                        // Show the error form if the LunarFiles are not ready
-                        Application.EnableVisualStyles();
-                        Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new ErrorUI());
-                    }
-                    else
-                    {
-
-                        if (!Epidote.Utils.FileVerification.IsFileAndDirectoryExist())
-                        {
-
-                            // Show the login form
-                            Application.EnableVisualStyles();
-                            Application.SetCompatibleTextRenderingDefault(false);
-                            Application.Run(new LoginUI());
-                        }
-                        else
-                        {
-                            // Read the username from the file
-                            _username = File.ReadAllText(Epidote.Utils.FileVerification._usernamePath);
-
-                            // Show the landing form
-                            Application.EnableVisualStyles();
-                            Application.SetCompatibleTextRenderingDefault(false);
-                            Application.Run(new LandingUI());
-                        }
-                    }
+                    // Show the error form if the LunarFiles are not ready
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new ErrorUI());
                 }
                 else
                 {
-                    // Show the version form if there is an outdated version of the software
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new VersionUI());
+
+                    if (!Epidote.Utils.FileVerification.IsFileAndDirectoryExist())
+                    {
+
+                        // Show the login form
+                        Application.EnableVisualStyles();
+                        Application.SetCompatibleTextRenderingDefault(false);
+                        Application.Run(new LoginUI());
+                    }
+                    else
+                    {
+                        // Read the username from the file
+                        _username = File.ReadAllText(Epidote.Utils.FileVerification._usernamePath);
+
+                        // Show the landing form
+                        Application.EnableVisualStyles();
+                        Application.SetCompatibleTextRenderingDefault(false);
+                        Application.Run(new LandingUI());
+                    }
                 }
             }
             else
             {
-                // Exit the application if the debugger is attached
-                Application.Exit();
+                // Show the version form if there is an outdated version of the software
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new VersionUI());
             }
         }
     }

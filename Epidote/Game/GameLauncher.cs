@@ -109,14 +109,16 @@ namespace Epidote.Game
         private static Process process;
         public static void LaunchLunar()
         {
-            ExceptionLogger.Write(LogEvent.Info,GetBasicArguments().ToString(), false);
+            // Write the arguments to be passed to the process to the exception logger
+            ExceptionLogger.Write(LogEvent.Info, GetBasicArguments().ToString(), false);
 
+            // Get the environment variable for the user profile, which is the location of the user's profile folder in Windows
             var userProfile = Environment.GetEnvironmentVariable("USERPROFILE");
 
-            // Combine the user profile path with the path to the LunarClient directory
+            // Create the path to the LunarClient directory by combining the user profile path with the subdirectories for LunarClient
             var lunarDirectory = Path.Combine(userProfile, @".lunarclient\offline\multiver");
 
-            // Get the path to the Lunar JRE
+            // Get the path to the Lunar JRE, which is the Java runtime environment required to run LunarClient
             var lunarJrePath = Epidote.Game.LunarJreCheck.GetLunarJrePath();
 
             // Get the process arguments
@@ -151,16 +153,16 @@ namespace Epidote.Game
                     EnableRaisingEvents = true
                 };
 
-                // Subscribe to the OutputDataReceived event
+                // Subscribe to the OutputDataReceived event to read and process the standard output
                 process.OutputDataReceived += Process_OutputDataReceived;
 
                 // Subscribe to the Exited event and close the launched process when it exits
-                //process.Exited += new EventHandler((sender, args) => Environment.Exit(0));
+                process.Exited += new EventHandler((sender, args) => Environment.Exit(0));
 
-                // Subscribe to the ProcessExit event and close the launched process if it is still running when the application exits
+                // Subscribe to the ProcessExit event to close the launched process if it is still running when the application exits
                 AppDomain.CurrentDomain.ProcessExit += new EventHandler((sender, args) =>
                 {
-                    // Code to close the launched process
+                    // Close the launched process if it is still running
                     if (!process.HasExited)
                     {
                         process.Kill();
@@ -179,6 +181,7 @@ namespace Epidote.Game
                 ExceptionLogger.Write(LogEvent.Error, $"An error occured: {ex}", false);
             }
         }
+
 
 
         private static string GetBasicArguments()
