@@ -1,7 +1,5 @@
 ﻿using Guna.UI2.WinForms;
 using Microsoft.VisualBasic.Devices;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -169,13 +167,6 @@ namespace Epidote
                 double maxMemory = GetMemory();
                 memorySlider.Maximum = (int)Math.Floor(maxMemory);
 
-                // Calculate the memory allocation for the game.
-                Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation();
-
-                // Upload player data to the MongoDB database
-                Epidote.MongoDB.MongoDBSettings.UploadPlayerData();
-                Epidote.MongoDB.MongoDBSettings.IncrementCounter();
-
                 // Wait until the flag "stop" is set to true
                 while (!stop)
                 {
@@ -239,6 +230,9 @@ namespace Epidote
             {
                 // Disable auto-login for the game.
                 Epidote.Game.ManipulateLunarLogin.DisableLunarAutoLogin();
+
+                // Calculate the memory allocation for the game.
+                Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation();
 
                 // Launch the game.
                 Epidote.Game.GameLauncher.LaunchLunar();

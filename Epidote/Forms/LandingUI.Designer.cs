@@ -73,6 +73,16 @@
             this.guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel12 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.settings_tab = new System.Windows.Forms.TabPage();
+            this.guna2GroupBox5 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2GroupBox7 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.memorySlider = new Guna.UI2.WinForms.Guna2TrackBar();
+            this.guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2Separator3 = new Guna.UI2.WinForms.Guna2Separator();
+            this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2HtmlLabel15 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2GroupBox6 = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2PictureBox6 = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.guna2HtmlLabel24 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2GroupBox4 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2HtmlLabel23 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2Separator4 = new Guna.UI2.WinForms.Guna2Separator();
@@ -83,16 +93,6 @@
             this.guna2HtmlLabel22 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel20 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.freeze_support_switch = new Guna.UI2.WinForms.Guna2ToggleSwitch();
-            this.guna2GroupBox5 = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Separator3 = new Guna.UI2.WinForms.Guna2Separator();
-            this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2HtmlLabel15 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2GroupBox6 = new Guna.UI2.WinForms.Guna2GroupBox();
-            this.guna2PictureBox6 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2HtmlLabel24 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.memorySlider = new Guna.UI2.WinForms.Guna2TrackBar();
-            this.guna2GroupBox7 = new Guna.UI2.WinForms.Guna2GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.profile_freame_picturebox)).BeginInit();
@@ -107,14 +107,14 @@
             this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).BeginInit();
             this.settings_tab.SuspendLayout();
-            this.guna2GroupBox4.SuspendLayout();
-            this.guna2Panel5.SuspendLayout();
-            this.guna2GroupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
             this.guna2GroupBox5.SuspendLayout();
             this.guna2Panel6.SuspendLayout();
             this.guna2GroupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).BeginInit();
+            this.guna2GroupBox4.SuspendLayout();
+            this.guna2Panel5.SuspendLayout();
+            this.guna2GroupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Separator1
@@ -839,6 +839,150 @@
             this.settings_tab.TabIndex = 3;
             this.settings_tab.Text = "settings_tab";
             // 
+            // guna2GroupBox5
+            // 
+            this.guna2GroupBox5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2GroupBox5.BorderRadius = 4;
+            this.guna2GroupBox5.Controls.Add(this.guna2GroupBox7);
+            this.guna2GroupBox5.Controls.Add(this.memorySlider);
+            this.guna2GroupBox5.Controls.Add(this.guna2HtmlLabel14);
+            this.guna2GroupBox5.Controls.Add(this.guna2Separator3);
+            this.guna2GroupBox5.Controls.Add(this.guna2Panel6);
+            this.guna2GroupBox5.Controls.Add(this.guna2GroupBox6);
+            this.guna2GroupBox5.Controls.Add(this.guna2HtmlLabel24);
+            this.guna2GroupBox5.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox5.FillColor = System.Drawing.Color.Black;
+            this.guna2GroupBox5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2GroupBox5.ForeColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox5.Location = new System.Drawing.Point(48, 252);
+            this.guna2GroupBox5.Name = "guna2GroupBox5";
+            this.guna2GroupBox5.Size = new System.Drawing.Size(628, 174);
+            this.guna2GroupBox5.TabIndex = 64;
+            this.guna2GroupBox5.Text = "guna2GroupBox5";
+            this.guna2GroupBox5.Visible = false;
+            // 
+            // guna2GroupBox7
+            // 
+            this.guna2GroupBox7.BackColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
+            this.guna2GroupBox7.BorderRadius = 6;
+            this.guna2GroupBox7.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox7.FillColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.guna2GroupBox7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
+            this.guna2GroupBox7.Location = new System.Drawing.Point(383, 87);
+            this.guna2GroupBox7.Name = "guna2GroupBox7";
+            this.guna2GroupBox7.ShadowDecoration.BorderRadius = 8;
+            this.guna2GroupBox7.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
+            this.guna2GroupBox7.ShadowDecoration.Depth = 6;
+            this.guna2GroupBox7.ShadowDecoration.Enabled = true;
+            this.guna2GroupBox7.Size = new System.Drawing.Size(99, 28);
+            this.guna2GroupBox7.TabIndex = 65;
+            this.guna2GroupBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.guna2GroupBox7.TextOffset = new System.Drawing.Point(0, -6);
+            // 
+            // memorySlider
+            // 
+            this.memorySlider.DisplayFocus = true;
+            this.memorySlider.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.memorySlider.IndicateFocus = true;
+            this.memorySlider.Location = new System.Drawing.Point(26, 90);
+            this.memorySlider.Name = "memorySlider";
+            this.memorySlider.Size = new System.Drawing.Size(349, 23);
+            this.memorySlider.Style = Guna.UI2.WinForms.Enums.TrackBarStyle.Metro;
+            this.memorySlider.TabIndex = 64;
+            this.memorySlider.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.memorySlider.Value = 0;
+            this.memorySlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.guna2TrackBar1_Scroll);
+            // 
+            // guna2HtmlLabel14
+            // 
+            this.guna2HtmlLabel14.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel14.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel14.ForeColor = System.Drawing.Color.White;
+            this.guna2HtmlLabel14.IsSelectionEnabled = false;
+            this.guna2HtmlLabel14.Location = new System.Drawing.Point(26, 58);
+            this.guna2HtmlLabel14.Name = "guna2HtmlLabel14";
+            this.guna2HtmlLabel14.Size = new System.Drawing.Size(347, 19);
+            this.guna2HtmlLabel14.TabIndex = 60;
+            this.guna2HtmlLabel14.Text = "Useful if you want to start the game with more memory.";
+            // 
+            // guna2Separator3
+            // 
+            this.guna2Separator3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.guna2Separator3.Location = new System.Drawing.Point(1, 128);
+            this.guna2Separator3.Name = "guna2Separator3";
+            this.guna2Separator3.Size = new System.Drawing.Size(626, 1);
+            this.guna2Separator3.TabIndex = 63;
+            // 
+            // guna2Panel6
+            // 
+            this.guna2Panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.guna2Panel6.BorderRadius = 5;
+            this.guna2Panel6.BorderThickness = 1;
+            this.guna2Panel6.Controls.Add(this.guna2HtmlLabel15);
+            this.guna2Panel6.Location = new System.Drawing.Point(1, 129);
+            this.guna2Panel6.Name = "guna2Panel6";
+            this.guna2Panel6.Size = new System.Drawing.Size(626, 44);
+            this.guna2Panel6.TabIndex = 63;
+            // 
+            // guna2HtmlLabel15
+            // 
+            this.guna2HtmlLabel15.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel15.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
+            this.guna2HtmlLabel15.IsSelectionEnabled = false;
+            this.guna2HtmlLabel15.Location = new System.Drawing.Point(24, 13);
+            this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
+            this.guna2HtmlLabel15.Size = new System.Drawing.Size(390, 17);
+            this.guna2HtmlLabel15.TabIndex = 59;
+            this.guna2HtmlLabel15.Text = "No need to set a very high memory value, but you can do what you want.";
+            // 
+            // guna2GroupBox6
+            // 
+            this.guna2GroupBox6.BackColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.guna2GroupBox6.BorderRadius = 12;
+            this.guna2GroupBox6.Controls.Add(this.guna2PictureBox6);
+            this.guna2GroupBox6.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox6.FillColor = System.Drawing.Color.Transparent;
+            this.guna2GroupBox6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.guna2GroupBox6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.guna2GroupBox6.Location = new System.Drawing.Point(110, 20);
+            this.guna2GroupBox6.Name = "guna2GroupBox6";
+            this.guna2GroupBox6.ShadowDecoration.BorderRadius = 12;
+            this.guna2GroupBox6.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
+            this.guna2GroupBox6.ShadowDecoration.Depth = 6;
+            this.guna2GroupBox6.ShadowDecoration.Enabled = true;
+            this.guna2GroupBox6.Size = new System.Drawing.Size(35, 26);
+            this.guna2GroupBox6.TabIndex = 61;
+            this.guna2GroupBox6.TextOffset = new System.Drawing.Point(1, -7);
+            // 
+            // guna2PictureBox6
+            // 
+            this.guna2PictureBox6.BackColor = System.Drawing.Color.Transparent;
+            this.guna2PictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox6.Image")));
+            this.guna2PictureBox6.ImageRotate = 0F;
+            this.guna2PictureBox6.Location = new System.Drawing.Point(6, 2);
+            this.guna2PictureBox6.Name = "guna2PictureBox6";
+            this.guna2PictureBox6.Size = new System.Drawing.Size(22, 22);
+            this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.guna2PictureBox6.TabIndex = 62;
+            this.guna2PictureBox6.TabStop = false;
+            this.guna2PictureBox6.UseTransparentBackground = true;
+            // 
+            // guna2HtmlLabel24
+            // 
+            this.guna2HtmlLabel24.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel24.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold);
+            this.guna2HtmlLabel24.ForeColor = System.Drawing.Color.White;
+            this.guna2HtmlLabel24.IsSelectionEnabled = false;
+            this.guna2HtmlLabel24.Location = new System.Drawing.Point(26, 15);
+            this.guna2HtmlLabel24.Name = "guna2HtmlLabel24";
+            this.guna2HtmlLabel24.Size = new System.Drawing.Size(79, 30);
+            this.guna2HtmlLabel24.TabIndex = 57;
+            this.guna2HtmlLabel24.Text = "Memory";
+            // 
             // guna2GroupBox4
             // 
             this.guna2GroupBox4.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -987,149 +1131,6 @@
             this.freeze_support_switch.UncheckedState.InnerOffset = 3;
             this.freeze_support_switch.CheckedChanged += new System.EventHandler(this.freeze_support_switch_CheckedChanged);
             // 
-            // guna2GroupBox5
-            // 
-            this.guna2GroupBox5.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.guna2GroupBox5.BorderRadius = 4;
-            this.guna2GroupBox5.Controls.Add(this.guna2GroupBox7);
-            this.guna2GroupBox5.Controls.Add(this.memorySlider);
-            this.guna2GroupBox5.Controls.Add(this.guna2HtmlLabel14);
-            this.guna2GroupBox5.Controls.Add(this.guna2Separator3);
-            this.guna2GroupBox5.Controls.Add(this.guna2Panel6);
-            this.guna2GroupBox5.Controls.Add(this.guna2GroupBox6);
-            this.guna2GroupBox5.Controls.Add(this.guna2HtmlLabel24);
-            this.guna2GroupBox5.CustomBorderColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox5.FillColor = System.Drawing.Color.Black;
-            this.guna2GroupBox5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2GroupBox5.ForeColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox5.Location = new System.Drawing.Point(48, 252);
-            this.guna2GroupBox5.Name = "guna2GroupBox5";
-            this.guna2GroupBox5.Size = new System.Drawing.Size(628, 174);
-            this.guna2GroupBox5.TabIndex = 64;
-            this.guna2GroupBox5.Text = "guna2GroupBox5";
-            // 
-            // guna2HtmlLabel14
-            // 
-            this.guna2HtmlLabel14.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel14.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel14.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel14.IsSelectionEnabled = false;
-            this.guna2HtmlLabel14.Location = new System.Drawing.Point(26, 58);
-            this.guna2HtmlLabel14.Name = "guna2HtmlLabel14";
-            this.guna2HtmlLabel14.Size = new System.Drawing.Size(347, 19);
-            this.guna2HtmlLabel14.TabIndex = 60;
-            this.guna2HtmlLabel14.Text = "Useful if you want to start the game with more memory.";
-            // 
-            // guna2Separator3
-            // 
-            this.guna2Separator3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.guna2Separator3.Location = new System.Drawing.Point(1, 128);
-            this.guna2Separator3.Name = "guna2Separator3";
-            this.guna2Separator3.Size = new System.Drawing.Size(626, 1);
-            this.guna2Separator3.TabIndex = 63;
-            // 
-            // guna2Panel6
-            // 
-            this.guna2Panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            this.guna2Panel6.BorderRadius = 5;
-            this.guna2Panel6.BorderThickness = 1;
-            this.guna2Panel6.Controls.Add(this.guna2HtmlLabel15);
-            this.guna2Panel6.Location = new System.Drawing.Point(1, 129);
-            this.guna2Panel6.Name = "guna2Panel6";
-            this.guna2Panel6.Size = new System.Drawing.Size(626, 44);
-            this.guna2Panel6.TabIndex = 63;
-            // 
-            // guna2HtmlLabel15
-            // 
-            this.guna2HtmlLabel15.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel15.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(153)))), ((int)(((byte)(153)))));
-            this.guna2HtmlLabel15.IsSelectionEnabled = false;
-            this.guna2HtmlLabel15.Location = new System.Drawing.Point(24, 13);
-            this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
-            this.guna2HtmlLabel15.Size = new System.Drawing.Size(390, 17);
-            this.guna2HtmlLabel15.TabIndex = 59;
-            this.guna2HtmlLabel15.Text = "No need to set a very high memory value, but you can do what you want.";
-            // 
-            // guna2GroupBox6
-            // 
-            this.guna2GroupBox6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.guna2GroupBox6.BorderRadius = 12;
-            this.guna2GroupBox6.Controls.Add(this.guna2PictureBox6);
-            this.guna2GroupBox6.CustomBorderColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox6.FillColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox6.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.guna2GroupBox6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.guna2GroupBox6.Location = new System.Drawing.Point(110, 20);
-            this.guna2GroupBox6.Name = "guna2GroupBox6";
-            this.guna2GroupBox6.ShadowDecoration.BorderRadius = 12;
-            this.guna2GroupBox6.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.guna2GroupBox6.ShadowDecoration.Depth = 6;
-            this.guna2GroupBox6.ShadowDecoration.Enabled = true;
-            this.guna2GroupBox6.Size = new System.Drawing.Size(35, 26);
-            this.guna2GroupBox6.TabIndex = 61;
-            this.guna2GroupBox6.TextOffset = new System.Drawing.Point(1, -7);
-            // 
-            // guna2PictureBox6
-            // 
-            this.guna2PictureBox6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2PictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("guna2PictureBox6.Image")));
-            this.guna2PictureBox6.ImageRotate = 0F;
-            this.guna2PictureBox6.Location = new System.Drawing.Point(6, 2);
-            this.guna2PictureBox6.Name = "guna2PictureBox6";
-            this.guna2PictureBox6.Size = new System.Drawing.Size(22, 22);
-            this.guna2PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.guna2PictureBox6.TabIndex = 62;
-            this.guna2PictureBox6.TabStop = false;
-            this.guna2PictureBox6.UseTransparentBackground = true;
-            // 
-            // guna2HtmlLabel24
-            // 
-            this.guna2HtmlLabel24.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel24.Font = new System.Drawing.Font("Segoe UI Semibold", 15F, System.Drawing.FontStyle.Bold);
-            this.guna2HtmlLabel24.ForeColor = System.Drawing.Color.White;
-            this.guna2HtmlLabel24.IsSelectionEnabled = false;
-            this.guna2HtmlLabel24.Location = new System.Drawing.Point(26, 15);
-            this.guna2HtmlLabel24.Name = "guna2HtmlLabel24";
-            this.guna2HtmlLabel24.Size = new System.Drawing.Size(79, 30);
-            this.guna2HtmlLabel24.TabIndex = 57;
-            this.guna2HtmlLabel24.Text = "Memory";
-            // 
-            // memorySlider
-            // 
-            this.memorySlider.DisplayFocus = true;
-            this.memorySlider.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            this.memorySlider.IndicateFocus = true;
-            this.memorySlider.Location = new System.Drawing.Point(26, 90);
-            this.memorySlider.Name = "memorySlider";
-            this.memorySlider.Size = new System.Drawing.Size(349, 23);
-            this.memorySlider.Style = Guna.UI2.WinForms.Enums.TrackBarStyle.Metro;
-            this.memorySlider.TabIndex = 64;
-            this.memorySlider.ThumbColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(54)))), ((int)(((byte)(127)))));
-            this.memorySlider.Value = 0;
-            this.memorySlider.Scroll += new System.Windows.Forms.ScrollEventHandler(this.guna2TrackBar1_Scroll);
-            // 
-            // guna2GroupBox7
-            // 
-            this.guna2GroupBox7.BackColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox7.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
-            this.guna2GroupBox7.BorderRadius = 6;
-            this.guna2GroupBox7.CustomBorderColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox7.FillColor = System.Drawing.Color.Transparent;
-            this.guna2GroupBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.guna2GroupBox7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
-            this.guna2GroupBox7.Location = new System.Drawing.Point(383, 87);
-            this.guna2GroupBox7.Name = "guna2GroupBox7";
-            this.guna2GroupBox7.ShadowDecoration.BorderRadius = 8;
-            this.guna2GroupBox7.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
-            this.guna2GroupBox7.ShadowDecoration.Depth = 6;
-            this.guna2GroupBox7.ShadowDecoration.Enabled = true;
-            this.guna2GroupBox7.Size = new System.Drawing.Size(99, 28);
-            this.guna2GroupBox7.TabIndex = 65;
-            this.guna2GroupBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.guna2GroupBox7.TextOffset = new System.Drawing.Point(0, -6);
-            // 
             // LandingUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1168,18 +1169,18 @@
             this.guna2Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox3)).EndInit();
             this.settings_tab.ResumeLayout(false);
-            this.guna2GroupBox4.ResumeLayout(false);
-            this.guna2GroupBox4.PerformLayout();
-            this.guna2Panel5.ResumeLayout(false);
-            this.guna2Panel5.PerformLayout();
-            this.guna2GroupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).EndInit();
             this.guna2GroupBox5.ResumeLayout(false);
             this.guna2GroupBox5.PerformLayout();
             this.guna2Panel6.ResumeLayout(false);
             this.guna2Panel6.PerformLayout();
             this.guna2GroupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox6)).EndInit();
+            this.guna2GroupBox4.ResumeLayout(false);
+            this.guna2GroupBox4.PerformLayout();
+            this.guna2Panel5.ResumeLayout(false);
+            this.guna2Panel5.PerformLayout();
+            this.guna2GroupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox5)).EndInit();
             this.ResumeLayout(false);
 
         }

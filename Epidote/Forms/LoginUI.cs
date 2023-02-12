@@ -75,17 +75,14 @@ namespace Epidote.Forms
                 // Writes the username to the file
                 File.WriteAllText(usernamePath, username);
 
-                // Creates a new instance of the LandingUI class
-                LandingUI landingUI = new LandingUI();
+                // Get the current process instance
+                Process process = Process.GetCurrentProcess();
 
-                // Hides the current window
-                Hide();
+                // Start a new instance of the same process
+                Process.Start(process.MainModule.FileName);
 
-                // Shows the new LandingUI window as a dialog
-                landingUI.ShowDialog();
-
-                // Closes the current window
-                Close();
+                // Terminate the current process
+                process.Kill();
             });
         }
 

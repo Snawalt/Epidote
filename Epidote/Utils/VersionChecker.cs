@@ -1,6 +1,4 @@
 ﻿using Epidote.Forms;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System;
 using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -20,16 +18,20 @@ namespace Epidote.Utils
         // Flag to indicate whether the software is outdated
         public static bool isOutdatedVersion = false;
 
+        static string url = "https://raw.githubusercontent.com/Snawalt/Epidote/master/version.txt";
+
+
         // Check if the software is up to date
         public static bool isUpdateAvaiable()
         {
-            if (Epidote.MongoDB.MongoDBSettings.GetVersion() != CurrentVersion)
+            using (WebClient client = new WebClient())
             {
-                LatestVersion = Epidote.MongoDB.MongoDBSettings.GetVersion();
-                return true;
+                string latestVersion = client.DownloadString(url).Trim();
+                if (CurrentVersion != latestVersion)
+                    return true;
+                else
+                    return false;
             }
-            else
-                return false;
         }
     }
 }
