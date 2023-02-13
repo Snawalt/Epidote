@@ -7,6 +7,7 @@ using System.IO;
 using System.Management;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -41,7 +42,7 @@ namespace Epidote
         public static bool IsUsernameValid { get; set; }
 
         // Timer for building cache
-        public static Timer _timer = new Timer();
+        public static System.Windows.Forms.Timer _timer = new System.Windows.Forms.Timer();
         private int _dots = 1;
 
         // Constructor for the LandingUI form
@@ -58,6 +59,8 @@ namespace Epidote
             _timer.Tick += Timer_Tick;
 
         }
+
+ 
 
         public static int sliderSetMemoryValue;
 
@@ -114,7 +117,7 @@ namespace Epidote
             return anyNetId;
         }
 
-        static double GetMemory()
+        static int GetMemory()
         {
             double totalPhysicalMemory = 0;
             ObjectQuery winQuery = new ObjectQuery("SELECT * FROM Win32_PhysicalMemory");
@@ -122,16 +125,23 @@ namespace Epidote
             ManagementObjectCollection results = searcher.Get();
             foreach (ManagementObject result in results)
             {
-                totalPhysicalMemory += Convert.ToDouble(result["Capacity"]) / 1024.0 / 1024.0 / 1024.0;
+                totalPhysicalMemory += Convert.ToInt64(result["Capacity"]) / 1024.0 / 1024.0;
             }
-            return totalPhysicalMemory;
+            return (int)totalPhysicalMemory;
         }
 
         private void LandingUI_Load(object sender, EventArgs e)
         {
+           
+
+
             // Start a new task to run the following code in parallel with the UI thread
             Task.Run(() =>
             {
+                memorySlider.Minimum = 0;
+                memorySlider.Maximum = GetMemory();
+                memorySlider.Value = Epidote.Game.MemoryCalculator.CalculateJavaMemoryAllocation();
+
                 // A flag to stop the loop
                 bool stop = false;
 
@@ -306,8 +316,8 @@ namespace Epidote
 
                     if (memorySlider != null)
                     {
-                        guna2GroupBox7.Text = selectedMemory + " GB | " + $"{percentage * 100:0.##}%";
-                        selectedMemory = sliderSetMemoryValue;
+                        guna2GroupBox7.Text = selectedMemory + " MB | " + $"{percentage * 100:0.##}%";
+                        sliderSetMemoryValue = selectedMemory;
                     }
                 });
             }

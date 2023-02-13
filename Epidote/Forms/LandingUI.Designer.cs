@@ -859,7 +859,6 @@
             this.guna2GroupBox5.Size = new System.Drawing.Size(628, 174);
             this.guna2GroupBox5.TabIndex = 64;
             this.guna2GroupBox5.Text = "guna2GroupBox5";
-            this.guna2GroupBox5.Visible = false;
             // 
             // guna2GroupBox7
             // 
@@ -876,7 +875,7 @@
             this.guna2GroupBox7.ShadowDecoration.Color = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(158)))), ((int)(((byte)(11)))));
             this.guna2GroupBox7.ShadowDecoration.Depth = 6;
             this.guna2GroupBox7.ShadowDecoration.Enabled = true;
-            this.guna2GroupBox7.Size = new System.Drawing.Size(99, 28);
+            this.guna2GroupBox7.Size = new System.Drawing.Size(116, 28);
             this.guna2GroupBox7.TabIndex = 65;
             this.guna2GroupBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.guna2GroupBox7.TextOffset = new System.Drawing.Point(0, -6);
